@@ -8,13 +8,13 @@ namespace CSharp
     {
         private static void TestImplementations(string s, bool expected)
         {
-            foreach (var implementation in Extensions.HasRepeatedCharactersImplementations)
+            foreach (var implementation in Extensions.Implementations)
                 s.HasRepeatedCharacters(implementation).ShouldBe(expected);
         }
 
         private static void TestImplementationsThrow<T>(string s) where T : Exception
         {
-            foreach (var implementation in Extensions.HasRepeatedCharactersImplementations)
+            foreach (var implementation in Extensions.Implementations)
                 Assert.Throws<T>(() => s.HasRepeatedCharacters(implementation));
         }
 
