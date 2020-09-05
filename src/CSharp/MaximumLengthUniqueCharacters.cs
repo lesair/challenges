@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CSharp
 {
@@ -9,13 +10,14 @@ namespace CSharp
     /// </summary>
     public static class MaximumLengthUniqueCharacters
     {
-        public static IEnumerable<Func<IEnumerable<string>, int>> Implementations
+        public static IEnumerable<Func<IList<string>, int>> Implementations
         {
             get
             {
-                return new Func<IEnumerable<string>, int>[]
+                return new Func<IList<string>, int>[]
                 {
-                    MaxLengthIterativeImplementation
+                    MaxLengthIterativeImplementation,
+                    MaxLengthRecursiveImplementation
                 };
             }
         }
@@ -27,7 +29,7 @@ namespace CSharp
         /// <param name="strings">Array of strings to concatenate.</param>
         /// <param name="implementation">Algorithm implementation to use.</param>
         /// <returns>The maximum possible length of the resulting string whose characters are unique.</returns>
-        public static int MaxLength(IEnumerable<string> strings, Func<IEnumerable<string>, int> implementation = null)
+        public static int MaxLength(IList<string> strings, Func<IList<string>, int> implementation = null)
         {
             if (implementation == null)
                 implementation = MaxLengthIterativeImplementation;
@@ -40,12 +42,12 @@ namespace CSharp
         ///     Time complexity:
         ///     Space complexity:
         /// </summary>
-        private static int MaxLengthIterativeImplementation(IEnumerable<string> arr)
+        private static int MaxLengthIterativeImplementation(IList<string> strings)
         {
             var longestLengthFound = 0;
             var candidates = new List<string>();
 
-            foreach (var s in arr)
+            foreach (var s in strings)
             {
                 for (var i = 0; i < candidates.Count; i++)
                     if (!(candidates[i] + s).HasRepeatedCharacters())
@@ -63,6 +65,50 @@ namespace CSharp
                 if (s.Length > longestLengthFound)
                     longestLengthFound = s.Length;
             }
+        }
+
+        /// <summary>
+        ///     Recursive, no Linq. Backtracking.
+        ///     Time complexity:
+        ///     Space complexity:
+        /// </summary>
+        private static int MaxLengthRecursiveImplementation(IList<string> strings)
+        {
+            int FindMaxLength(string currentString, IReadOnlyCollection<string> currentStrings)
+            {
+                if (currentString.HasRepeatedCharacters())
+                    return 0;
+
+                var currentMaxLength = currentString.Length;
+
+                var currentBasedStrings = new Queue<string>(currentStrings);
+                while (currentBasedStrings.Any())
+                {
+                    var currentBasedNextString = currentBasedStrings.Dequeue();
+                    var currentBasedNextMaxLength =
+                        FindMaxLength(currentString + currentBasedNextString, currentBasedStrings);
+                    if (currentBasedNextMaxLength > currentMaxLength)
+                        currentMaxLength = currentBasedNextMaxLength;
+                }
+
+                if (currentStrings.Any())
+                {
+                    var nextStrings = new Queue<string>(currentStrings);
+                    var nextString = nextStrings.Dequeue();
+                    var nextMaxLength = FindMaxLength(nextString, nextStrings);
+                    if (nextMaxLength > currentMaxLength)
+                        currentMaxLength = nextMaxLength;
+                }
+
+                return currentMaxLength;
+            }
+
+            if (!strings.Any())
+                return 0;
+
+            var firstStrings = new Queue<string>(strings);
+            var firstString = firstStrings.Dequeue();
+            return FindMaxLength(firstString, firstStrings);
         }
     }
 }
