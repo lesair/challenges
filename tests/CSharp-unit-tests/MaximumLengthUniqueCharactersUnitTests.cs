@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Shouldly;
 using Xunit;
 
@@ -5,44 +6,52 @@ namespace CSharp
 {
     public class MaximumLengthUniqueCharactersUnitTests
     {
+        private static void TestImplementations(IList<string> strings, int expected)
+        {
+            foreach (var implementation in MaximumLengthUniqueCharacters.Implementations)
+                MaximumLengthUniqueCharacters.MaxLength(strings, implementation).ShouldBe(expected);
+        }
+
         [Fact]
         public void TestCase01()
         {
-            var arr = new[] {"un", "iq", "ue"};
-            const int expectedMagLength = 4;
-            MaximumLengthUniqueCharacters.MaxLength(arr).ShouldBe(expectedMagLength);
+            var strings = new[] {"un", "iq", "ue"};
+            const int expected = 4;
+            TestImplementations(strings, expected);
         }
 
         [Fact]
         public void TestCase02()
         {
-            var arr = new[] {"cha", "r", "act", "ers"};
-            const int expectedMagLength = 6;
-            MaximumLengthUniqueCharacters.MaxLength(arr).ShouldBe(expectedMagLength);
+            var strings = new[] {"cha", "r", "act", "ers"};
+            const int expected = 6;
+            TestImplementations(strings, expected);
         }
 
         [Fact]
         public void TestCase03()
         {
-            var arr = new[] {"abcdefghijklmnopqrstuvwxyz"};
-            const int expectedMagLength = 26;
-            MaximumLengthUniqueCharacters.MaxLength(arr).ShouldBe(expectedMagLength);
+            // ReSharper disable once StringLiteralTypo
+            var strings = new[] {"abcdefghijklmnopqrstuvwxyz"};
+            const int expected = 26;
+            TestImplementations(strings, expected);
         }
 
         [Fact]
         public void TestCase04()
         {
-            var arr = new[] {"yy", "bkhwmpbiisbldzknpm"};
-            const int expectedMagLength = 0;
-            MaximumLengthUniqueCharacters.MaxLength(arr).ShouldBe(expectedMagLength);
+            // ReSharper disable once StringLiteralTypo
+            var strings = new[] {"yy", "bkhwmpbiisbldzknpm"};
+            const int expected = 0;
+            TestImplementations(strings, expected);
         }
 
         [Fact]
         public void TestCase05()
         {
-            var arr = new[] {"a", "abc", "d", "de", "def"};
-            const int expectedMagLength = 6;
-            MaximumLengthUniqueCharacters.MaxLength(arr).ShouldBe(expectedMagLength);
+            var strings = new[] {"a", "abc", "d", "de", "def"};
+            const int expected = 6;
+            TestImplementations(strings, expected);
         }
     }
 }
