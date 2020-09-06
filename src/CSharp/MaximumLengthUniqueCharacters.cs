@@ -74,27 +74,24 @@ namespace CSharp
         /// </summary>
         private static int MaxLengthRecursiveImplementation(IList<string> strings)
         {
-            int FindMaxLength(string currentString, IReadOnlyCollection<string> currentStrings)
+            int FindMaxLength(string currentString, IEnumerable<string> currentStrings)
             {
                 if (currentString.HasRepeatedCharacters())
                     return 0;
 
                 var currentMaxLength = currentString.Length;
 
-                var currentBasedStrings = new Queue<string>(currentStrings);
-                while (currentBasedStrings.Any())
+                var nextStrings = new Queue<string>(currentStrings);
+                while (nextStrings.Any())
                 {
-                    var currentBasedNextString = currentBasedStrings.Dequeue();
-                    var currentBasedNextMaxLength =
-                        FindMaxLength(currentString + currentBasedNextString, currentBasedStrings);
-                    if (currentBasedNextMaxLength > currentMaxLength)
-                        currentMaxLength = currentBasedNextMaxLength;
+                    var nextString = nextStrings.Dequeue();
+                    currentMaxLength = Math.Max(currentMaxLength, FindMaxLength(currentString + nextString, nextStrings));
                 }
 
                 return currentMaxLength;
             }
 
-            return FindMaxLength(string.Empty, strings.ToList());
+            return FindMaxLength(string.Empty, strings);
         }
     }
 }
