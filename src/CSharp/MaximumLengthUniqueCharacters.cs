@@ -39,8 +39,8 @@ namespace CSharp
 
         /// <summary>
         ///     Iterative, no Linq.
-        ///     Time complexity:
-        ///     Space complexity:
+        ///     Time complexity: O(n²).
+        ///     Space complexity: O(n²).
         /// </summary>
         private static int MaxLengthIterativeImplementation(IList<string> strings)
         {
@@ -62,8 +62,7 @@ namespace CSharp
             void AddCandidate(string s)
             {
                 candidates.Add(s);
-                if (s.Length > longestLengthFound)
-                    longestLengthFound = s.Length;
+                longestLengthFound = Math.Max(longestLengthFound, s.Length);
             }
         }
 
