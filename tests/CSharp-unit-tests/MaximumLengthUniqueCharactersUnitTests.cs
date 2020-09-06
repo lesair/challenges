@@ -65,8 +65,8 @@ namespace CSharp
         [Fact]
         public void TestCase07()
         {
-            var strings = new[] { "zog", "nvwsuikgndmfexxgjtkb", "nxko"            };
-            const int expected = 6;
+            var strings = new[] {"zog", "nvwsuikgndmfexxgjtkb", "nxko"};
+            const int expected = 4;
             TestImplementations(strings, expected);
         }
     }
