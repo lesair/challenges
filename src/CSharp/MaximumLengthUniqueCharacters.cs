@@ -91,24 +91,10 @@ namespace CSharp
                         currentMaxLength = currentBasedNextMaxLength;
                 }
 
-                if (currentStrings.Any())
-                {
-                    var nextStrings = new Queue<string>(currentStrings);
-                    var nextString = nextStrings.Dequeue();
-                    var nextMaxLength = FindMaxLength(nextString, nextStrings);
-                    if (nextMaxLength > currentMaxLength)
-                        currentMaxLength = nextMaxLength;
-                }
-
                 return currentMaxLength;
             }
 
-            if (!strings.Any())
-                return 0;
-
-            var firstStrings = new Queue<string>(strings);
-            var firstString = firstStrings.Dequeue();
-            return FindMaxLength(firstString, firstStrings);
+            return FindMaxLength(string.Empty, strings.ToList());
         }
     }
 }
