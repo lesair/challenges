@@ -68,9 +68,9 @@ namespace CSharp
         }
 
         /// <summary>
-        ///     Recursive, no Linq. Backtracking.
-        ///     Time complexity:
-        ///     Space complexity:
+        ///     Recursive, no Linq. Backtracking. Queues.
+        ///     Time complexity: Θ(?).
+        ///     Space complexity: Θ(?).
         /// </summary>
         private static int MaxLengthRecursiveImplementation(IList<string> strings)
         {
@@ -85,7 +85,8 @@ namespace CSharp
                 while (nextStrings.Any())
                 {
                     var nextString = nextStrings.Dequeue();
-                    currentMaxLength = Math.Max(currentMaxLength, FindMaxLength(currentString + nextString, nextStrings));
+                    currentMaxLength = Math.Max(currentMaxLength,
+                        FindMaxLength(currentString + nextString, nextStrings));
                 }
 
                 return currentMaxLength;
