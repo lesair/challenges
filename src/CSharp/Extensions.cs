@@ -37,7 +37,8 @@ namespace CSharp
         }
 
         /// <summary>
-        ///     <see cref="HasRepeatedCharacters" /> iterative implementation with Linq.
+        ///     <see cref="HasRepeatedCharacters" /> iterative implementation with LINQ.
+        ///     Tags: Iterative, LINQ.
         ///     Time complexity: O(n).
         ///     Space complexity: O(n).
         /// </summary>
@@ -51,7 +52,8 @@ namespace CSharp
         }
 
         /// <summary>
-        ///     <see cref="HasRepeatedCharacters" /> greedy iterative implementation with a Dictionary.
+        ///     <see cref="HasRepeatedCharacters" /> iterative implementation with a Dictionary.
+        ///     Tags: Iterative, hash table.
         ///     Time complexity: O(n).
         ///     Space complexity: O(n).
         /// </summary>
