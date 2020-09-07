@@ -10,7 +10,7 @@ namespace CSharp.Library.Extensions
     /// </summary>
     public static class StringExtensions
     {
-        public static IEnumerable<Func<string, bool>> Implementations
+        public static IEnumerable<Func<string, bool>> HasRepeatedCharactersImplementations
         {
             get
             {
