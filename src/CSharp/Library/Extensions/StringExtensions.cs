@@ -8,7 +8,7 @@ namespace CSharp.Library.Extensions
     /// <summary>
     ///     Common useful extensions.
     /// </summary>
-    public static class Extensions
+    public static class StringExtensions
     {
         public static IEnumerable<Func<string, bool>> Implementations
         {
