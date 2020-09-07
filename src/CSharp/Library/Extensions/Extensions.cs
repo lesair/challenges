@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Ardalis.GuardClauses;
 
-namespace CSharp
+namespace CSharp.Library.Extensions
 {
     /// <summary>
     ///     Common useful extensions.

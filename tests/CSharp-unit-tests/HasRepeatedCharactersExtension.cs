@@ -1,4 +1,5 @@
 ﻿using System;
+using CSharp.Library.Extensions;
 using Shouldly;
 using Xunit;
 
