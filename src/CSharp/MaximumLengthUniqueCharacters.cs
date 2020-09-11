@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using CSharp.Library.Extensions;
 
 namespace CSharp
 {
@@ -38,7 +39,7 @@ namespace CSharp
         }
 
         /// <summary>
-        ///     Iterative, no Linq.
+        ///     Iterative.
         ///     Time complexity: O(n²).
         ///     Space complexity: O(n²).
         /// </summary>
@@ -67,28 +68,25 @@ namespace CSharp
         }
 
         /// <summary>
-        ///     Recursive, no Linq. Backtracking. Queues.
+        ///     Recursive. Backtracking.
         ///     Time complexity: Θ(?).
         ///     Space complexity: Θ(?).
         /// </summary>
         private static int MaxLengthRecursiveImplementation(IList<string> strings)
         {
-            int FindMaxLength(string currentString, IEnumerable<string> currentStrings)
+            int FindMaxLength(string accumulatedConcatenation, IEnumerable<string> currentStrings)
             {
-                if (currentString.HasRepeatedCharacters())
-                    return 0;
+                var stringsQueue = new Queue<string>(currentStrings);
 
-                var currentMaxLength = currentString.Length;
+                if (accumulatedConcatenation.HasRepeatedCharacters()) return 0;
+                if (!stringsQueue.Any()) return accumulatedConcatenation.Length;
 
-                var nextStrings = new Queue<string>(currentStrings);
-                while (nextStrings.Any())
-                {
-                    var nextString = nextStrings.Dequeue();
-                    currentMaxLength = Math.Max(currentMaxLength,
-                        FindMaxLength(currentString + nextString, nextStrings));
-                }
+                var nextString = stringsQueue.Dequeue();
 
-                return currentMaxLength;
+                var depthMaxLength = FindMaxLength(accumulatedConcatenation + nextString, stringsQueue);
+                var breadthMaxLength = FindMaxLength(accumulatedConcatenation, stringsQueue);
+
+                return Math.Max(accumulatedConcatenation.Length, Math.Max(depthMaxLength, breadthMaxLength));
             }
 
             return FindMaxLength(string.Empty, strings);
