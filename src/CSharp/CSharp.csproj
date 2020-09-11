@@ -8,8 +8,4 @@
     <PackageReference Include="Ardalis.GuardClauses" Version="3.0.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Library\BinarySearchTree\" />
-  </ItemGroup>
-
 </Project>
