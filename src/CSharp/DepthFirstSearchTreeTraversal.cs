@@ -67,7 +67,7 @@ namespace CSharp
         /// </summary>
         private static void PreOrderRecursiveImplementation(Node<T> node)
         {
-            if (node.Data == null)
+            if (node == null)
                 return;
             Visit(node);
             foreach (var child in node.Children) // From left to right.
@@ -82,7 +82,7 @@ namespace CSharp
         /// <param name="node"></param>
         private static void PreOrderIterativeImplementation(Node<T> node)
         {
-            if (node.Data == null)
+            if (node == null)
                 return;
             var stack = new Stack<Node<T>>();
             stack.Push(node);
@@ -92,7 +92,7 @@ namespace CSharp
                 Visit(node);
                 // Child nodes are pushed from right to left, so that they are processed from left to right.
                 for (var i = node.Children.Count - 1; i >= 0; i--)
-                    if (node.Children[i].Data != null)
+                    if (node.Children[i] != null)
                         stack.Push(node.Children[i]);
             }
         }
@@ -117,7 +117,7 @@ namespace CSharp
         /// </summary>
         private static void InOrderRecursiveImplementation(Node<T> node)
         {
-            if (node.Data == null)
+            if (node == null)
                 return;
             var halfChildren = node.Children.Count.RoundUpDivideBy(2);
             var leftChildren = node.Children.Take(halfChildren);
@@ -149,7 +149,7 @@ namespace CSharp
         /// </summary>
         private static void PostOrderRecursiveImplementation(Node<T> node)
         {
-            if (node.Data == null)
+            if (node == null)
                 return;
             foreach (var child in node.Children) // From left to right.
                 PostOrder(child);
