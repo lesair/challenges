@@ -61,8 +61,8 @@ namespace CSharp
 
         /// <summary>
         ///     Recursive.
-        ///     Time complexity:
-        ///     Space complexity:
+        ///     Time complexity: O(n).
+        ///     Space complexity: O(n).
         /// </summary>
         private static void PreOrderRecursiveImplementation(Node<T> node)
         {
