@@ -42,9 +42,9 @@ namespace CSharp
         }
 
         /// <summary>
-        ///     Method that represents a node visit.
+        ///     Action to execute when a node is visited.
         /// </summary>
-        public static Action<T> OutputCallback { get; set; }
+        public static Action<Node<T>> Visit { get; set; }
 
         /// <summary>
         ///     Traverses the expression tree pre-orderly.
@@ -68,7 +68,7 @@ namespace CSharp
         {
             if (node.Data == null)
                 return;
-            OutputCallback(node.Data);
+            Visit(node);
             foreach (var child in node.Children) // From left to right.
                 PreOrder(child);
         }
@@ -100,7 +100,7 @@ namespace CSharp
             var rightChildren = node.Children.Skip(halfChildren);
             foreach (var child in leftChildren)
                 InOrder(child);
-            OutputCallback(node.Data);
+            Visit(node);
             foreach (var child in rightChildren)
                 InOrder(child);
         }
@@ -129,7 +129,7 @@ namespace CSharp
                 return;
             foreach (var child in node.Children) // From left to right.
                 PostOrder(child);
-            OutputCallback(node.Data);
+            Visit(node);
         }
     }
 }
