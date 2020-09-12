@@ -14,7 +14,8 @@ namespace CSharp
             {
                 return new Action<Node<T>>[]
                 {
-                    PreOrderRecursiveImplementation
+                    PreOrderRecursiveImplementation,
+                    PreOrderIterativeImplementation
                 };
             }
         }
@@ -71,6 +72,29 @@ namespace CSharp
             Visit(node);
             foreach (var child in node.Children) // From left to right.
                 PreOrder(child);
+        }
+
+        /// <summary>
+        ///     Iterative. Stack.
+        ///     Time complexity: O(n).
+        ///     Space complexity: O(n).
+        /// </summary>
+        /// <param name="node"></param>
+        private static void PreOrderIterativeImplementation(Node<T> node)
+        {
+            if (node.Data == null)
+                return;
+            var stack = new Stack<Node<T>>();
+            stack.Push(node);
+            while (stack.Any())
+            {
+                node = stack.Pop();
+                Visit(node);
+                // Child nodes are pushed from right to left, so that they are processed from left to right.
+                for (var i = node.Children.Count - 1; i >= 0; i--)
+                    if (node.Children[i].Data != null)
+                        stack.Push(node.Children[i]);
+            }
         }
 
         /// <summary>
