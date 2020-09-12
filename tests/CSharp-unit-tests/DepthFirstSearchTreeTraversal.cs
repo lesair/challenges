@@ -37,7 +37,7 @@ namespace CSharp
             foreach (var implementation in implementations)
             {
                 var actualTraversal = new List<char?>();
-                DepthFirstSearchTreeTraversal<char?>.Visit = node => actualTraversal.Add(node.Data);
+                DepthFirstSearchTreeTraversal<char?>.Visit = visitedNode => actualTraversal.Add(visitedNode.Data);
                 implementation(node);
                 actualTraversal.ShouldBe(expectedTraversal);
             }
