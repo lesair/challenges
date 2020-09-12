@@ -26,7 +26,8 @@ namespace CSharp
             {
                 return new Action<Node<T>>[]
                 {
-                    InOrderRecursiveImplementation
+                    InOrderRecursiveImplementation,
+                    InOrderIterativeImplementation
                 };
             }
         }
@@ -127,6 +128,28 @@ namespace CSharp
             Visit(node);
             foreach (var child in rightChildren)
                 InOrder(child);
+        }
+
+        /// <summary>
+        ///     Iterative. Stack.
+        ///     Time complexity: O(n).
+        ///     Space complexity: O(n).
+        /// </summary>
+        private static void InOrderIterativeImplementation(Node<T> node)
+        {
+            var stack = new Stack<Node<T>>();
+            while (stack.Any() || node != null)
+                if (node != null)
+                {
+                    stack.Push(node);
+                    node = node.Children.Any() ? node.Children.First() : null;
+                }
+                else
+                {
+                    node = stack.Pop();
+                    Visit(node);
+                    node = node.Children.Count > 1 ? node.Children.Last() : null;
+                }
         }
 
         /// <summary>
