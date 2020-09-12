@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using CSharp.Library.Extensions;
 using CSharp.Library.Tree;
@@ -177,6 +178,56 @@ namespace CSharp
             foreach (var child in node.Children) // From left to right.
                 PostOrder(child);
             Visit(node);
+        }
+
+        /// <summary>
+        ///     Iterative. Stack.
+        ///     Time complexity: O(n).
+        ///     Space complexity: O(n).
+        /// </summary>
+        [SuppressMessage("ReSharper", "HeuristicUnreachableCode")]
+        // ReSharper disable once UnusedMember.Local
+        private static void PostOrderIterativeImplementation(Node<T> node)
+        {
+            throw new NotImplementedException(); // TODO: PostOrderIterativeImplementation needs more work.
+
+#pragma warning disable 162
+            var stack = new Stack<Node<T>>();
+            var last = node;
+            while (stack.Any() || node != null)
+                if (node != null)
+                {
+                    // If `last` is right child of `node`, then the right branch is traversed.
+                    // Visit `node` and continue with `node`'s parent.
+                    if (node.Children.Count > 1 && node.Children.Last() == last)
+                    {
+                        Visit(node);
+                        last = node;
+                        node = stack.Pop();
+                    }
+                    else
+                    {
+                        stack.Push(node);
+                        // If `last` is left child of `node`, then the left branch is traversed.
+                        // Continue with `node`'s right branch.
+                        if (node.Children.Any() && node.Children.First() == last)
+                        {
+                            last = node;
+                            node = node.Children.Last();
+                        }
+                        else
+                        {
+                            last = node;
+                            node = node.Children.Any() ? node.Children.First() : null;
+                        }
+                    }
+                }
+                else
+                {
+                    last = node;
+                    node = stack.Pop();
+                }
+#pragma warning restore 162
         }
     }
 }
