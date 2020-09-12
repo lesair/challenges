@@ -95,7 +95,7 @@ namespace CSharp
         {
             if (node.Data == null)
                 return;
-            var halfChildren = node.Children.Count().RoundUpDivideBy(2);
+            var halfChildren = node.Children.Count.RoundUpDivideBy(2);
             var leftChildren = node.Children.Take(halfChildren);
             var rightChildren = node.Children.Skip(halfChildren);
             foreach (var child in leftChildren)

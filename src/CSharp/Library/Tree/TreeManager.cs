@@ -27,7 +27,7 @@ namespace CSharp.Library.Tree
             var parentNode = _nodes[parentNodeName];
             var childNode = new Node<T>(nodeData);
             _nodes.Add(nodeName, childNode);
-            parentNode.Children = parentNode.Children.Append(childNode);
+            parentNode.Children.Add(childNode);
         }
 
         public void AddChildrenNodesToParent(string parentNodeName, IList<(T nodeData, string nodeName)> nodesData)
@@ -44,7 +44,7 @@ namespace CSharp.Library.Tree
                 newChildNodes.Add(childNode);
             }
 
-            parentNode.Children = parentNode.Children.Concat(newChildNodes);
+            parentNode.Children = parentNode.Children.Concat(newChildNodes).ToArray();
         }
 
         public void AddChildrenNodesToParent(string parentNodeName, IList<T> dataItems)

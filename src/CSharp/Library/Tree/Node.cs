@@ -25,7 +25,7 @@ namespace CSharp.Library.Tree
             Children = new List<Node<T>>();
         }
 
-        public Node(T data, IEnumerable<Node<T>> children)
+        public Node(T data, IList<Node<T>> children)
         {
             Data = data;
             Children = children;
@@ -39,7 +39,7 @@ namespace CSharp.Library.Tree
         /// <summary>
         ///     Node children.
         /// </summary>
-        public IEnumerable<Node<T>> Children { get; set; }
+        public IList<Node<T>> Children { get; set; }
 
         public override string ToString()
         {
