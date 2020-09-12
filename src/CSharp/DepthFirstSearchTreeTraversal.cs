@@ -41,6 +41,9 @@ namespace CSharp
             }
         }
 
+        /// <summary>
+        ///     Method that represents a node visit.
+        /// </summary>
         public static Action<T> OutputCallback { get; set; }
 
         /// <summary>
