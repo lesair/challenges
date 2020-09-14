@@ -9,18 +9,6 @@ namespace CSharp
 {
     public static class DepthFirstSearchTreeTraversal<T>
     {
-        public static IEnumerable<Action<Node<T>>> PreOrderImplementations
-        {
-            get
-            {
-                return new Action<Node<T>>[]
-                {
-                    PreOrderRecursiveImplementation,
-                    PreOrderIterativeImplementation
-                };
-            }
-        }
-
         public static IEnumerable<Action<Node<T>>> InOrderImplementations
         {
             get
@@ -29,6 +17,18 @@ namespace CSharp
                 {
                     InOrderRecursiveImplementation,
                     InOrderIterativeImplementation
+                };
+            }
+        }
+
+        public static IEnumerable<Action<Node<T>>> PreOrderImplementations
+        {
+            get
+            {
+                return new Action<Node<T>>[]
+                {
+                    PreOrderRecursiveImplementation,
+                    PreOrderIterativeImplementation
                 };
             }
         }
@@ -50,11 +50,11 @@ namespace CSharp
         public static Action<Node<T>> Visit { get; set; }
 
         /// <summary>
-        ///     Traverses the expression tree pre-orderly.
+        ///     Traverses the expression tree.
         /// </summary>
         /// <param name="node">Tree's root node start.</param>
         /// <param name="implementation">Algorithm implementation to use.</param>
-        public static void PreOrder(Node<T> node, Action<Node<T>> implementation = null)
+        public static void Traverse(Node<T> node, Action<Node<T>> implementation = null)
         {
             if (implementation == null)
                 implementation = PreOrderRecursiveImplementation;
@@ -63,6 +63,7 @@ namespace CSharp
         }
 
         /// <summary>
+        ///     Pre-orderly traversal.
         ///     Recursive.
         ///     Time complexity: O(n).
         ///     Space complexity: O(n).
@@ -73,10 +74,11 @@ namespace CSharp
                 return;
             Visit(node);
             foreach (var child in node.Children) // From left to right.
-                PreOrder(child);
+                PreOrderRecursiveImplementation(child);
         }
 
         /// <summary>
+        ///     Pre-orderly traversal.
         ///     Iterative. Stack.
         ///     Time complexity: O(n).
         ///     Space complexity: O(n).
@@ -100,19 +102,7 @@ namespace CSharp
         }
 
         /// <summary>
-        ///     Traverses the expression tree in-orderly.
-        /// </summary>
-        /// <param name="node">Tree's root node start.</param>
-        /// <param name="implementation">Algorithm implementation to use.</param>
-        public static void InOrder(Node<T> node, Action<Node<T>> implementation = null)
-        {
-            if (implementation == null)
-                implementation = InOrderRecursiveImplementation;
-
-            implementation(node);
-        }
-
-        /// <summary>
+        ///     In-orderly traversal.
         ///     Recursive.
         ///     Time complexity: O(n).
         ///     Space complexity: O(n).
@@ -125,13 +115,14 @@ namespace CSharp
             var leftChildren = node.Children.Take(halfChildren);
             var rightChildren = node.Children.Skip(halfChildren);
             foreach (var child in leftChildren)
-                InOrder(child);
+                InOrderRecursiveImplementation(child);
             Visit(node);
             foreach (var child in rightChildren)
-                InOrder(child);
+                InOrderRecursiveImplementation(child);
         }
 
         /// <summary>
+        ///     In-orderly traversal.
         ///     Iterative. Stack.
         ///     Time complexity: O(n).
         ///     Space complexity: O(n).
@@ -154,19 +145,7 @@ namespace CSharp
         }
 
         /// <summary>
-        ///     Traverses the expression tree post-orderly.
-        /// </summary>
-        /// <param name="node">Tree's root node start.</param>
-        /// <param name="implementation">Algorithm implementation to use.</param>
-        public static void PostOrder(Node<T> node, Action<Node<T>> implementation = null)
-        {
-            if (implementation == null)
-                implementation = PostOrderRecursiveImplementation;
-
-            implementation(node);
-        }
-
-        /// <summary>
+        ///     Post-orderly traversal.
         ///     Recursive.
         ///     Time complexity: O(n).
         ///     Space complexity: O(n).
@@ -176,11 +155,12 @@ namespace CSharp
             if (node == null)
                 return;
             foreach (var child in node.Children) // From left to right.
-                PostOrder(child);
+                PostOrderRecursiveImplementation(child);
             Visit(node);
         }
 
         /// <summary>
+        ///     Post-orderly traversal.
         ///     Iterative. Stack.
         ///     Time complexity: O(n).
         ///     Space complexity: O(n).

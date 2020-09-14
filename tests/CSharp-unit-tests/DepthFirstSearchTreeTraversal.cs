@@ -38,7 +38,7 @@ namespace CSharp
             {
                 var actualTraversal = new List<char?>();
                 DepthFirstSearchTreeTraversal<char?>.Visit = visitedNode => actualTraversal.Add(visitedNode.Data);
-                implementation(node);
+                DepthFirstSearchTreeTraversal<char?>.Traverse(node, implementation);
                 actualTraversal.ShouldBe(expectedTraversal);
             }
         }
