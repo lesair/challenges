@@ -61,7 +61,7 @@ namespace CSharp
         ///     Time complexity: O(n).
         ///     Space complexity: O(n).
         /// </summary>
-        private static void LevelOrderRecursiveImplementation(IList<Node<T>> levelNodes)
+        private static void LevelOrderRecursiveImplementation(ICollection<Node<T>> levelNodes)
         {
             if (!levelNodes.Any())
                 return;

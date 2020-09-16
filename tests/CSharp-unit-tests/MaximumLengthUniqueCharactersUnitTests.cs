@@ -6,7 +6,7 @@ namespace CSharp
 {
     public class MaximumLengthUniqueCharactersUnitTests
     {
-        private static void TestImplementations(IList<string> strings, int expected)
+        private static void TestImplementations(ICollection<string> strings, int expected)
         {
             foreach (var implementation in MaximumLengthUniqueCharacters.Implementations)
                 MaximumLengthUniqueCharacters.MaxLength(strings, implementation).ShouldBe(expected);

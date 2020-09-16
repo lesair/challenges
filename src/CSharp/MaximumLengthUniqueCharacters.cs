@@ -11,11 +11,11 @@ namespace CSharp
     /// </summary>
     public static class MaximumLengthUniqueCharacters
     {
-        public static IEnumerable<Func<IList<string>, int>> Implementations
+        public static IEnumerable<Func<ICollection<string>, int>> Implementations
         {
             get
             {
-                return new Func<IList<string>, int>[]
+                return new Func<ICollection<string>, int>[]
                 {
                     MaxLengthIterativeImplementation,
                     MaxLengthRecursiveImplementation
@@ -30,7 +30,7 @@ namespace CSharp
         /// <param name="strings">Array of strings to concatenate.</param>
         /// <param name="implementation">Algorithm implementation to use.</param>
         /// <returns>The maximum possible length of the resulting string whose characters are unique.</returns>
-        public static int MaxLength(IList<string> strings, Func<IList<string>, int> implementation = null)
+        public static int MaxLength(ICollection<string> strings, Func<ICollection<string>, int> implementation = null)
         {
             if (implementation == null)
                 implementation = MaxLengthIterativeImplementation;

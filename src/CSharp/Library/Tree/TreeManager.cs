@@ -37,7 +37,8 @@ namespace CSharp.Library.Tree
             }
         }
 
-        public void AddChildrenNodesToParent(string parentNodeName, IList<(T nodeData, string nodeName)> nodesData)
+        public void AddChildrenNodesToParent(string parentNodeName,
+            ICollection<(T nodeData, string nodeName)> nodesData)
         {
             Guard.Against.Null(parentNodeName, nameof(parentNodeName));
             Guard.Against.Null(nodesData, nameof(nodesData));
@@ -46,7 +47,7 @@ namespace CSharp.Library.Tree
                 AddChildNodeToParent(parentNodeName, nodeData, nodeName);
         }
 
-        public void AddChildrenNodesToParent(string parentNodeName, IList<T> dataItems)
+        public void AddChildrenNodesToParent(string parentNodeName, ICollection<T> dataItems)
         {
             var nodesData = dataItems.Select(d => (d, (string) null)).ToList();
             AddChildrenNodesToParent(parentNodeName, nodesData);

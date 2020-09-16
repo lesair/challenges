@@ -31,7 +31,7 @@ namespace CSharp
             _tree.AddChildNodeToParent("I", 'H');
         }
 
-        private static void TestImplementations(Node<char?> node, IList<char?> expectedTraversal,
+        private static void TestImplementations(Node<char?> node, ICollection<char?> expectedTraversal,
             IEnumerable<Action<Node<char?>>> implementations)
         {
             foreach (var implementation in implementations)
