@@ -17,8 +17,9 @@ namespace CSharp
             {
                 return new Func<ICollection<string>, int>[]
                 {
-                    MaxLengthIterativeImplementation,
-                    MaxLengthRecursiveImplementation
+                    // TODO: An iterative implementation for MaximumLengthUniqueCharacters.
+                    MaxLengthRecursiveBinaryTreeImplementation,
+                    MaxLengthRecursiveTreeImplementation
                 };
             }
         }
@@ -33,63 +34,70 @@ namespace CSharp
         public static int MaxLength(ICollection<string> strings, Func<ICollection<string>, int> implementation = null)
         {
             if (implementation == null)
-                implementation = MaxLengthIterativeImplementation;
+                implementation = MaxLengthRecursiveBinaryTreeImplementation;
 
             return implementation(strings);
         }
 
         /// <summary>
-        ///     Iterative.
-        ///     Time complexity: O(n²).
-        ///     Space complexity: O(n²).
-        /// </summary>
-        private static int MaxLengthIterativeImplementation(IList<string> strings)
-        {
-            var longestLengthFound = 0;
-            var candidates = new List<string>();
-
-            foreach (var s in strings)
-            {
-                for (var i = 0; i < candidates.Count; i++)
-                    if (!(candidates[i] + s).HasRepeatedCharacters())
-                        AddCandidate(candidates[i] + s);
-
-                if (!s.HasRepeatedCharacters())
-                    AddCandidate(s);
-            }
-
-            return longestLengthFound;
-
-            void AddCandidate(string s)
-            {
-                candidates.Add(s);
-                longestLengthFound = Math.Max(longestLengthFound, s.Length);
-            }
-        }
-
-        /// <summary>
-        ///     Recursive. Backtracking.
+        ///     Recursive. Depth-first search.
+        ///     The recursion tree is a bifurcating arborescence. The left child traverses a string concatenation that is based on
+        ///     the current string node plus the next node, while the right child traverses concatenations based on the current
+        ///     node without the next node.
         ///     Time complexity: Θ(?).
         ///     Space complexity: Θ(?).
         /// </summary>
-        private static int MaxLengthRecursiveImplementation(IList<string> strings)
+        private static int MaxLengthRecursiveBinaryTreeImplementation(ICollection<string> strings)
         {
-            int FindMaxLength(string accumulatedConcatenation, IEnumerable<string> currentStrings)
+            static int MaxLength(string node, ICollection<string> children)
             {
-                var stringsQueue = new Queue<string>(currentStrings);
+                if (node.HasRepeatedCharacters())
+                    return 0;
+                if (!children.Any())
+                    return node.Length;
 
-                if (accumulatedConcatenation.HasRepeatedCharacters()) return 0;
-                if (!stringsQueue.Any()) return accumulatedConcatenation.Length;
+                var nextChildren = new List<string>(children);
+                var nextNode = children.First();
+                nextChildren.Remove(nextNode);
 
-                var nextString = stringsQueue.Dequeue();
+                var leftMaxLength = MaxLength(node + nextNode, nextChildren);
+                var rightMaxLength = MaxLength(node, nextChildren);
 
-                var depthMaxLength = FindMaxLength(accumulatedConcatenation + nextString, stringsQueue);
-                var breadthMaxLength = FindMaxLength(accumulatedConcatenation, stringsQueue);
-
-                return Math.Max(accumulatedConcatenation.Length, Math.Max(depthMaxLength, breadthMaxLength));
+                return Math.Max(leftMaxLength, rightMaxLength);
             }
 
-            return FindMaxLength(string.Empty, strings);
+            return MaxLength(string.Empty, strings);
+        }
+
+        /// <summary>
+        ///     Recursive. Depth-first search.
+        ///     The recursion tree considers the current string (which is a concatenation of successful string combinations) as the
+        ///     current node, and the rest of the strings as its children, therefore one node may have many children.
+        ///     Time complexity: Θ(?).
+        ///     Space complexity: Θ(?).
+        /// </summary>
+        private static int MaxLengthRecursiveTreeImplementation(ICollection<string> strings)
+        {
+            static int MaxLength(string node, ICollection<string> children)
+            {
+                if (node.HasRepeatedCharacters())
+                    return 0;
+                if (!children.Any())
+                    return node.Length;
+
+                var lengths = new List<int> {node.Length};
+
+                var nextChildren = new List<string>(children);
+                foreach (var child in children)
+                {
+                    nextChildren.Remove(child);
+                    lengths.Add(MaxLength(node + child, nextChildren));
+                }
+
+                return lengths.Max();
+            }
+
+            return MaxLength(string.Empty, strings);
         }
     }
 }
