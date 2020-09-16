@@ -69,5 +69,13 @@ namespace CSharp
             const int expected = 4;
             TestImplementations(strings, expected);
         }
+
+        [Fact]
+        public void TestCase08()
+        {
+            var strings = new[] {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p"};
+            const int expected = 16;
+            TestImplementations(strings, expected);
+        }
     }
 }
