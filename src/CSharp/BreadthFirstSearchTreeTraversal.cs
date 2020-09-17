@@ -27,14 +27,14 @@ namespace CSharp
         /// <summary>
         ///     Traverses the expression tree in level-order.
         /// </summary>
-        /// <param name="node">Tree's root node start.</param>
+        /// <param name="genericNode">Tree's root node start.</param>
         /// <param name="implementation">Algorithm implementation to use.</param>
-        public static void LevelOrder(Node<T> node, Action<Node<T>> implementation = null)
+        public static void LevelOrder(Node<T> genericNode, Action<Node<T>> implementation = null)
         {
             if (implementation == null)
                 implementation = LevelOrderIterativeImplementation;
 
-            implementation(node);
+            implementation(genericNode);
         }
 
         /// <summary>
@@ -42,15 +42,15 @@ namespace CSharp
         ///     Time complexity: O(n).
         ///     Space complexity: O(n).
         /// </summary>
-        private static void LevelOrderIterativeImplementation(Node<T> node)
+        private static void LevelOrderIterativeImplementation(Node<T> genericNode)
         {
             var queue = new Queue<Node<T>>();
-            queue.Enqueue(node);
+            queue.Enqueue(genericNode);
             while (queue.Any())
             {
-                node = queue.Dequeue();
-                Visit(node);
-                foreach (var child in node.Children) // From left to right.
+                genericNode = queue.Dequeue();
+                Visit(genericNode);
+                foreach (var child in genericNode.Children) // From left to right.
                     if (child != null)
                         queue.Enqueue(child);
             }
@@ -76,9 +76,9 @@ namespace CSharp
             LevelOrderRecursiveImplementation(nextLevelNodes);
         }
 
-        private static void LevelOrderRecursiveImplementation(Node<T> rootNode)
+        private static void LevelOrderRecursiveImplementation(Node<T> rootGenericNode)
         {
-            LevelOrderRecursiveImplementation(new[] {rootNode});
+            LevelOrderRecursiveImplementation(new[] {rootGenericNode});
         }
     }
 }

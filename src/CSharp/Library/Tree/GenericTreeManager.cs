@@ -4,15 +4,15 @@ using Ardalis.GuardClauses;
 
 namespace CSharp.Library.Tree
 {
-    public class TreeManager<T>
+    public sealed class GenericTreeManager<T>
     {
         private readonly Dictionary<string, Node<T>> _nodes = new Dictionary<string, Node<T>>();
 
-        public TreeManager(T rootNodeData, string rootNodeName = null)
+        public GenericTreeManager(T rootNodeData, string rootNodeName = null)
         {
             if (rootNodeName == null)
                 rootNodeName = rootNodeData.ToString();
-            var rootNode = new Node<T>(rootNodeData);
+            var rootNode = new GenericNode<T>(rootNodeData);
             _nodes.Add(rootNodeName, rootNode);
         }
 
@@ -31,7 +31,7 @@ namespace CSharp.Library.Tree
             {
                 if (nodeName == null)
                     nodeName = nodeData.ToString();
-                var childNode = new Node<T>(nodeData);
+                var childNode = new GenericNode<T>(nodeData);
                 parentNode.Children.Add(childNode);
                 _nodes.Add(nodeName, childNode);
             }

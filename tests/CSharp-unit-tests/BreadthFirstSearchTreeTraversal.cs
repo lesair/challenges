@@ -19,24 +19,24 @@ namespace CSharp
             //     A   D       I
             //        / \     /
             //       C   E   H
-            _tree = new TreeManager<char?>('F');
-            _tree.AddChildrenNodesToParent("F", new char?[] {'B', 'G'});
-            _tree.AddChildrenNodesToParent("G", new char?[] {null, 'I'});
-            _tree.AddChildrenNodesToParent("B", new char?[] {'A', 'D'});
-            _tree.AddChildrenNodesToParent("D", new char?[] {'C', 'E'});
-            _tree.AddChildNodeToParent("I", 'H');
+            _genericTree = new GenericTreeManager<char?>('F');
+            _genericTree.AddChildrenNodesToParent("F", new char?[] {'B', 'G'});
+            _genericTree.AddChildrenNodesToParent("G", new char?[] {null, 'I'});
+            _genericTree.AddChildrenNodesToParent("B", new char?[] {'A', 'D'});
+            _genericTree.AddChildrenNodesToParent("D", new char?[] {'C', 'E'});
+            _genericTree.AddChildNodeToParent("I", 'H');
         }
 
-        private readonly TreeManager<char?> _tree;
+        private readonly GenericTreeManager<char?> _genericTree;
 
-        private static void TestImplementations(Node<char?> node, ICollection<char?> expectedTraversal,
+        private static void TestImplementations(Node<char?> genericNode, ICollection<char?> expectedTraversal,
             IEnumerable<Action<Node<char?>>> implementations)
         {
             foreach (var implementation in implementations)
             {
                 var actualTraversal = new List<char?>();
                 BreadthFirstSearchTreeTraversal<char?>.Visit = visitedNode => actualTraversal.Add(visitedNode.Data);
-                BreadthFirstSearchTreeTraversal<char?>.LevelOrder(node, implementation);
+                BreadthFirstSearchTreeTraversal<char?>.LevelOrder(genericNode, implementation);
                 actualTraversal.ShouldBe(expectedTraversal);
             }
         }
@@ -45,7 +45,7 @@ namespace CSharp
         public void IsCorrectlyDoneInLevelOrder()
         {
             var expectedTraversal = new char?[] {'F', 'B', 'G', 'A', 'D', 'I', 'C', 'E', 'H'};
-            TestImplementations(_tree["F"], expectedTraversal,
+            TestImplementations(_genericTree["F"], expectedTraversal,
                 BreadthFirstSearchTreeTraversal<char?>.Implementations);
         }
     }

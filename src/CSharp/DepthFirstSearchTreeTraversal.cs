@@ -1,18 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using CSharp.Library.Extensions;
 using CSharp.Library.Tree;
 
 namespace CSharp
 {
     public static class DepthFirstSearchTreeTraversal<T>
     {
-        public static IEnumerable<Action<Node<T>>> InOrderImplementations
+        public static IEnumerable<Action<BinaryNode<T>>> InOrderImplementations
         {
             get
             {
-                return new Action<Node<T>>[]
+                return new Action<BinaryNode<T>>[]
                 {
                     // TODO: An iterative in-order implementation for DepthFirstSearchTreeTraversal.
                     InOrderRecursiveImplementation
@@ -20,11 +19,11 @@ namespace CSharp
             }
         }
 
-        public static IEnumerable<Action<Node<T>>> PreOrderImplementations
+        public static IEnumerable<Action<BinaryNode<T>>> PreOrderImplementations
         {
             get
             {
-                return new Action<Node<T>>[]
+                return new Action<BinaryNode<T>>[]
                 {
                     PreOrderRecursiveImplementation,
                     PreOrderIterativeImplementation
@@ -32,11 +31,11 @@ namespace CSharp
             }
         }
 
-        public static IEnumerable<Action<Node<T>>> PostOrderImplementations
+        public static IEnumerable<Action<BinaryNode<T>>> PostOrderImplementations
         {
             get
             {
-                return new Action<Node<T>>[]
+                return new Action<BinaryNode<T>>[]
                 {
                     // TODO: An iterative post-order implementation for DepthFirstSearchTreeTraversal.
                     PostOrderRecursiveImplementation
@@ -54,7 +53,7 @@ namespace CSharp
         /// </summary>
         /// <param name="node">Tree's root node start.</param>
         /// <param name="implementation">Algorithm implementation to use.</param>
-        public static void Traverse(Node<T> node, Action<Node<T>> implementation = null)
+        public static void Traverse(BinaryNode<T> node, Action<BinaryNode<T>> implementation = null)
         {
             if (implementation == null)
                 implementation = PreOrderRecursiveImplementation;
@@ -68,13 +67,13 @@ namespace CSharp
         ///     Time complexity: O(n).
         ///     Space complexity: O(n).
         /// </summary>
-        private static void PreOrderRecursiveImplementation(Node<T> node)
+        private static void PreOrderRecursiveImplementation(BinaryNode<T> node)
         {
             if (node == null)
                 return;
             Visit(node);
-            foreach (var child in node.Children) // From left to right.
-                PreOrderRecursiveImplementation(child);
+            PreOrderRecursiveImplementation(node.Left);
+            PreOrderRecursiveImplementation(node.Right);
         }
 
         /// <summary>
@@ -84,20 +83,19 @@ namespace CSharp
         ///     Space complexity: O(n).
         /// </summary>
         /// <param name="node"></param>
-        private static void PreOrderIterativeImplementation(Node<T> node)
+        private static void PreOrderIterativeImplementation(BinaryNode<T> node)
         {
             if (node == null)
                 return;
-            var stack = new Stack<Node<T>>();
+            var stack = new Stack<BinaryNode<T>>();
             stack.Push(node);
             while (stack.Any())
             {
                 node = stack.Pop();
                 Visit(node);
                 // Child nodes are pushed from right to left, so that they are processed from left to right.
-                for (var i = node.Children.Count - 1; i >= 0; i--)
-                    if (node.Children[i] != null)
-                        stack.Push(node.Children[i]);
+                if (node.Right != null) stack.Push(node.Right);
+                if (node.Left != null) stack.Push(node.Left);
             }
         }
 
@@ -107,18 +105,13 @@ namespace CSharp
         ///     Time complexity: O(n).
         ///     Space complexity: O(n).
         /// </summary>
-        private static void InOrderRecursiveImplementation(Node<T> node)
+        private static void InOrderRecursiveImplementation(BinaryNode<T> node)
         {
             if (node == null)
                 return;
-            var halfChildren = node.Children.Count.RoundUpDivideBy(2);
-            var leftChildren = node.Children.Take(halfChildren);
-            var rightChildren = node.Children.Skip(halfChildren);
-            foreach (var child in leftChildren)
-                InOrderRecursiveImplementation(child);
+            InOrderRecursiveImplementation(node.Left);
             Visit(node);
-            foreach (var child in rightChildren)
-                InOrderRecursiveImplementation(child);
+            InOrderRecursiveImplementation(node.Right);
         }
 
         /// <summary>
@@ -127,12 +120,12 @@ namespace CSharp
         ///     Time complexity: O(n).
         ///     Space complexity: O(n).
         /// </summary>
-        private static void PostOrderRecursiveImplementation(Node<T> node)
+        private static void PostOrderRecursiveImplementation(BinaryNode<T> node)
         {
             if (node == null)
                 return;
-            foreach (var child in node.Children) // From left to right.
-                PostOrderRecursiveImplementation(child);
+            PostOrderRecursiveImplementation(node.Left);
+            PostOrderRecursiveImplementation(node.Right);
             Visit(node);
         }
     }

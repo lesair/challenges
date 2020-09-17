@@ -23,16 +23,16 @@ namespace CSharp
             //     A   D       I
             //        / \     /
             //       C   E   H
-            _tree = new TreeManager<char?>('F');
-            _tree.AddChildrenNodesToParent("F", new char?[] {'B', 'G'});
-            _tree.AddChildrenNodesToParent("G", new char?[] {null, 'I'});
-            _tree.AddChildrenNodesToParent("B", new char?[] {'A', 'D'});
-            _tree.AddChildrenNodesToParent("D", new char?[] {'C', 'E'});
-            _tree.AddChildNodeToParent("I", 'H');
+            _binaryTree = new BinaryTreeManager<char?>('F');
+            _binaryTree.AddChildrenNodesToParent("F", 'B', 'G');
+            _binaryTree.AddChildrenNodesToParent("G", null, 'I');
+            _binaryTree.AddChildrenNodesToParent("B", 'A', 'D');
+            _binaryTree.AddChildrenNodesToParent("D", 'C', 'E');
+            _binaryTree.AddChildNodeToParent("I", BifurcationIndex.Left, 'H');
         }
 
-        private static void TestImplementations(Node<char?> node, ICollection<char?> expectedTraversal,
-            IEnumerable<Action<Node<char?>>> implementations)
+        private static void TestImplementations(BinaryNode<char?> node, ICollection<char?> expectedTraversal,
+            IEnumerable<Action<BinaryNode<char?>>> implementations)
         {
             foreach (var implementation in implementations)
             {
@@ -43,13 +43,13 @@ namespace CSharp
             }
         }
 
-        private readonly TreeManager<char?> _tree;
+        private readonly BinaryTreeManager<char?> _binaryTree;
 
         [Fact]
         public void IsCorrectlyDoneInInOrder()
         {
             var expectedTraversal = new char?[] {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'};
-            TestImplementations(_tree["F"], expectedTraversal,
+            TestImplementations(_binaryTree["F"], expectedTraversal,
                 DepthFirstSearchTreeTraversal<char?>.InOrderImplementations);
         }
 
@@ -57,7 +57,7 @@ namespace CSharp
         public void IsCorrectlyDoneInPostOrder()
         {
             var expectedTraversal = new char?[] {'A', 'C', 'E', 'D', 'B', 'H', 'I', 'G', 'F'};
-            TestImplementations(_tree["F"], expectedTraversal,
+            TestImplementations(_binaryTree["F"], expectedTraversal,
                 DepthFirstSearchTreeTraversal<char?>.PostOrderImplementations);
         }
 
@@ -65,7 +65,7 @@ namespace CSharp
         public void IsCorrectlyDoneInPreOrder()
         {
             var expectedTraversal = new char?[] {'F', 'B', 'A', 'D', 'C', 'E', 'G', 'I', 'H'};
-            TestImplementations(_tree["F"], expectedTraversal,
+            TestImplementations(_binaryTree["F"], expectedTraversal,
                 DepthFirstSearchTreeTraversal<char?>.PreOrderImplementations);
         }
     }
