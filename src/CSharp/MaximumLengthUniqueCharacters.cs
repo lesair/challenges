@@ -44,6 +44,7 @@ namespace CSharp
         ///     The recursion tree is a bifurcating arborescence. The left child traverses a string concatenation that is based on
         ///     the current string node plus the next node, while the right child traverses concatenations based on the current
         ///     node without the next node.
+        ///     TODO: Calculate MaxLengthRecursiveBinaryTreeImplementation time and space complexities.
         ///     Time complexity: Θ(?).
         ///     Space complexity: Θ(?).
         /// </summary>
@@ -73,6 +74,7 @@ namespace CSharp
         ///     Recursive. Depth-first search.
         ///     The recursion tree considers the current string (which is a concatenation of successful string combinations) as the
         ///     current node, and the rest of the strings as its children, therefore one node may have many children.
+        ///     TODO: Calculate MaxLengthRecursiveTreeImplementation time and space complexities.
         ///     Time complexity: Θ(?).
         ///     Space complexity: Θ(?).
         /// </summary>
