@@ -21,7 +21,7 @@ namespace CSharp.Library.Tree
         /// <summary>
         ///     Node children.
         /// </summary>
-        public virtual IList<Node<T>> Children { get; set; }
+        public abstract IList<Node<T>> Children { get; set; }
 
         public override string ToString()
         {
