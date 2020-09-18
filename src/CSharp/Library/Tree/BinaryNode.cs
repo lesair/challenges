@@ -5,21 +5,21 @@ namespace CSharp.Library.Tree
     /// <summary>
     ///     A binary tree node, with a branching factor bounded to two.
     /// </summary>
-    /// <typeparam name="T">Node data type.</typeparam>
-    public class BinaryNode<T> : Node<T>
+    /// <typeparam name="TData">Node data type.</typeparam>
+    public sealed class BinaryNode<TData> : Node<TData, BinaryNode<TData>>
     {
         public BinaryNode()
         {
         }
 
-        public BinaryNode(T data)
+        public BinaryNode(TData data)
         {
             Data = data;
         }
 
-        public override IList<Node<T>> Children { get; set; } = new Node<T>[2];
-        public BinaryNode<T> Left => (BinaryNode<T>) Children[(int) BifurcationIndex.Left];
-        public BinaryNode<T> Right => (BinaryNode<T>) Children[(int) BifurcationIndex.Right];
+        public override IList<BinaryNode<TData>> Children { get; set; } = new BinaryNode<TData>[2];
+        public BinaryNode<TData> Left => Children[(int) BifurcationIndex.Left];
+        public BinaryNode<TData> Right => Children[(int) BifurcationIndex.Right];
     }
 
     public enum BifurcationIndex

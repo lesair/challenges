@@ -46,7 +46,7 @@ namespace CSharp
         /// <summary>
         ///     Action to execute when a node is visited.
         /// </summary>
-        public static Action<Node<T>> Visit { get; set; }
+        public static Action<BinaryNode<T>> Visit { get; set; }
 
         /// <summary>
         ///     Traverses the expression tree.

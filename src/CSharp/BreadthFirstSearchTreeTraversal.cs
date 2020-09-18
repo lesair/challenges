@@ -52,7 +52,7 @@ namespace CSharp
                 Visit(genericNode);
                 foreach (var node in genericNode.Children) // From left to right.
                 {
-                    var child = (GenericNode<T>) node;
+                    var child = node;
                     if (child != null)
                         queue.Enqueue(child);
                 }
@@ -73,7 +73,7 @@ namespace CSharp
             foreach (var node in levelNodes) // From left to right.
             {
                 Visit(node);
-                nextLevelNodes.AddRange(node.Children.Where(child => child != null).Select(child => (GenericNode<T>)child));
+                nextLevelNodes.AddRange(node.Children.Where(child => child != null));
             }
 
             LevelOrderRecursiveImplementation(nextLevelNodes);
