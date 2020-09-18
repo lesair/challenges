@@ -29,8 +29,8 @@ namespace CSharp
 
         private readonly GenericTreeManager<char?> _genericTree;
 
-        private static void TestImplementations(Node<char?> genericNode, ICollection<char?> expectedTraversal,
-            IEnumerable<Action<Node<char?>>> implementations)
+        private static void TestImplementations(GenericNode<char?> genericNode, ICollection<char?> expectedTraversal,
+            IEnumerable<Action<GenericNode<char?>>> implementations)
         {
             foreach (var implementation in implementations)
             {

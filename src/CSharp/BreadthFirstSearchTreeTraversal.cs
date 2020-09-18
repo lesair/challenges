@@ -7,11 +7,11 @@ namespace CSharp
 {
     public class BreadthFirstSearchTreeTraversal<T>
     {
-        public static IEnumerable<Action<Node<T>>> Implementations
+        public static IEnumerable<Action<GenericNode<T>>> Implementations
         {
             get
             {
-                return new Action<Node<T>>[]
+                return new Action<GenericNode<T>>[]
                 {
                     LevelOrderIterativeImplementation,
                     LevelOrderRecursiveImplementation
@@ -22,14 +22,14 @@ namespace CSharp
         /// <summary>
         ///     Action to execute when a node is visited.
         /// </summary>
-        public static Action<Node<T>> Visit { get; set; }
+        public static Action<GenericNode<T>> Visit { get; set; }
 
         /// <summary>
         ///     Traverses the expression tree in level-order.
         /// </summary>
         /// <param name="genericNode">Tree's root node start.</param>
         /// <param name="implementation">Algorithm implementation to use.</param>
-        public static void LevelOrder(Node<T> genericNode, Action<Node<T>> implementation = null)
+        public static void LevelOrder(GenericNode<T> genericNode, Action<GenericNode<T>> implementation = null)
         {
             if (implementation == null)
                 implementation = LevelOrderIterativeImplementation;
@@ -42,17 +42,20 @@ namespace CSharp
         ///     Time complexity: O(n).
         ///     Space complexity: O(n).
         /// </summary>
-        private static void LevelOrderIterativeImplementation(Node<T> genericNode)
+        private static void LevelOrderIterativeImplementation(GenericNode<T> genericNode)
         {
-            var queue = new Queue<Node<T>>();
+            var queue = new Queue<GenericNode<T>>();
             queue.Enqueue(genericNode);
             while (queue.Any())
             {
                 genericNode = queue.Dequeue();
                 Visit(genericNode);
-                foreach (var child in genericNode.Children) // From left to right.
+                foreach (var node in genericNode.Children) // From left to right.
+                {
+                    var child = (GenericNode<T>) node;
                     if (child != null)
                         queue.Enqueue(child);
+                }
             }
         }
 
@@ -61,22 +64,22 @@ namespace CSharp
         ///     Time complexity: O(n).
         ///     Space complexity: O(n).
         /// </summary>
-        private static void LevelOrderRecursiveImplementation(ICollection<Node<T>> levelNodes)
+        private static void LevelOrderRecursiveImplementation(ICollection<GenericNode<T>> levelNodes)
         {
             if (!levelNodes.Any())
                 return;
 
-            var nextLevelNodes = new List<Node<T>>();
+            var nextLevelNodes = new List<GenericNode<T>>();
             foreach (var node in levelNodes) // From left to right.
             {
                 Visit(node);
-                nextLevelNodes.AddRange(node.Children.Where(child => child != null));
+                nextLevelNodes.AddRange(node.Children.Where(child => child != null).Select(child => (GenericNode<T>)child));
             }
 
             LevelOrderRecursiveImplementation(nextLevelNodes);
         }
 
-        private static void LevelOrderRecursiveImplementation(Node<T> rootGenericNode)
+        private static void LevelOrderRecursiveImplementation(GenericNode<T> rootGenericNode)
         {
             LevelOrderRecursiveImplementation(new[] {rootGenericNode});
         }

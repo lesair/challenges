@@ -6,7 +6,7 @@ namespace CSharp.Library.Tree
 {
     public sealed class GenericTreeManager<T>
     {
-        private readonly Dictionary<string, Node<T>> _nodes = new Dictionary<string, Node<T>>();
+        private readonly Dictionary<string, GenericNode<T>> _nodes = new Dictionary<string, GenericNode<T>>();
 
         public GenericTreeManager(T rootNodeData, string rootNodeName = null)
         {
@@ -16,7 +16,7 @@ namespace CSharp.Library.Tree
             _nodes.Add(rootNodeName, rootNode);
         }
 
-        public Node<T> this[string nodeName] => _nodes[nodeName];
+        public GenericNode<T> this[string nodeName] => _nodes[nodeName];
 
         public void AddChildNodeToParent(string parentNodeName, T nodeData, string nodeName = null)
         {
