@@ -27,14 +27,14 @@ namespace CSharp
         /// <summary>
         ///     Traverses the expression tree in level-order.
         /// </summary>
-        /// <param name="genericNode">Tree's root node start.</param>
+        /// <param name="node">Tree's root node start.</param>
         /// <param name="implementation">Algorithm implementation to use.</param>
-        public static void LevelOrder(GenericNode<T> genericNode, Action<GenericNode<T>> implementation = null)
+        public static void LevelOrder(GenericNode<T> node, Action<GenericNode<T>> implementation = null)
         {
             if (implementation == null)
                 implementation = LevelOrderIterativeImplementation;
 
-            implementation(genericNode);
+            implementation(node);
         }
 
         /// <summary>
@@ -42,20 +42,17 @@ namespace CSharp
         ///     Time complexity: O(n).
         ///     Space complexity: O(n).
         /// </summary>
-        private static void LevelOrderIterativeImplementation(GenericNode<T> genericNode)
+        private static void LevelOrderIterativeImplementation(GenericNode<T> node)
         {
             var queue = new Queue<GenericNode<T>>();
-            queue.Enqueue(genericNode);
+            queue.Enqueue(node);
             while (queue.Any())
             {
-                genericNode = queue.Dequeue();
-                Visit(genericNode);
-                foreach (var node in genericNode.Children) // From left to right.
-                {
-                    var child = node;
+                node = queue.Dequeue();
+                Visit(node);
+                foreach (var child in node.Children) // From left to right.
                     if (child != null)
                         queue.Enqueue(child);
-                }
             }
         }
 
@@ -79,9 +76,9 @@ namespace CSharp
             LevelOrderRecursiveImplementation(nextLevelNodes);
         }
 
-        private static void LevelOrderRecursiveImplementation(GenericNode<T> rootGenericNode)
+        private static void LevelOrderRecursiveImplementation(GenericNode<T> rootNode)
         {
-            LevelOrderRecursiveImplementation(new[] {rootGenericNode});
+            LevelOrderRecursiveImplementation(new[] {rootNode});
         }
     }
 }
