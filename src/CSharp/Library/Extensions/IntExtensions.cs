@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace CSharp.Library.Extensions
+﻿namespace CSharp.Library.Extensions
 {
     public static class IntExtensions
     {
@@ -14,7 +12,7 @@ namespace CSharp.Library.Extensions
         /// <returns></returns>
         public static int RoundUpDivideBy(this int a, int b)
         {
-            var result = Math.DivRem(a, b, out var remainder);
+            var result = System.Math.DivRem(a, b, out var remainder);
             if (remainder != 0) result++;
             return result;
         }
