@@ -3,20 +3,30 @@ using CSharp.Library.Extensions;
 using Shouldly;
 using Xunit;
 
+// ReSharper disable StringLiteralTypo
+
 namespace CSharp
 {
-    public class HasRepeatedCharactersExtension
+    public class HasRepeatedCharactersExtension : BaseTest
     {
-        private static void TestImplementations(string s, bool expected)
+        public HasRepeatedCharactersExtension()
         {
-            foreach (var implementation in StringExtensions.HasRepeatedCharactersImplementations)
-                s.HasRepeatedCharacters(implementation).ShouldBe(expected);
+            TypeToTest = typeof(StringExtensions);
         }
 
-        private static void TestImplementationsThrow<T>(string s) where T : Exception
+        private void TestImplementations(string s, bool expectedResult)
         {
-            foreach (var implementation in StringExtensions.HasRepeatedCharactersImplementations)
-                Assert.Throws<T>(() => s.HasRepeatedCharacters(implementation));
+            foreach (var implementation in ImplementationsToTest())
+            {
+                var actualResult = (bool) implementation.Invoke(null, new object[] {s});
+                actualResult.ShouldBe(expectedResult);
+            }
+        }
+
+        private void TestImplementationsThrow<T>(string s) where T : Exception
+        {
+            foreach (var implementation in ImplementationsToTest())
+                Assert.Throws<T>(() => (bool) implementation.Invoke(null, new object[] {s}));
         }
 
         [Fact]
