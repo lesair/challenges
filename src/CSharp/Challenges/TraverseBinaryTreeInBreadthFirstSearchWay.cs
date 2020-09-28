@@ -3,46 +3,26 @@ using System.Collections.Generic;
 using System.Linq;
 using CSharp.Library.Tree;
 
-namespace CSharp
+namespace CSharp.Challenges
 {
-    public class BreadthFirstSearchTreeTraversal<T>
+    /// <summary>
+    ///     Traverses the expression tree in level-order.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public class TraverseBinaryTreeInBreadthFirstSearchWay<T>
     {
-        public static IEnumerable<Action<GenericNode<T>>> Implementations
-        {
-            get
-            {
-                return new Action<GenericNode<T>>[]
-                {
-                    LevelOrderIterativeImplementation,
-                    LevelOrderRecursiveImplementation
-                };
-            }
-        }
-
         /// <summary>
         ///     Action to execute when a node is visited.
         /// </summary>
+        /// <typeparam name="T">Node data type.</typeparam>
         public static Action<GenericNode<T>> Visit { get; set; }
-
-        /// <summary>
-        ///     Traverses the expression tree in level-order.
-        /// </summary>
-        /// <param name="node">Tree's root node start.</param>
-        /// <param name="implementation">Algorithm implementation to use.</param>
-        public static void LevelOrder(GenericNode<T> node, Action<GenericNode<T>> implementation = null)
-        {
-            if (implementation == null)
-                implementation = LevelOrderIterativeImplementation;
-
-            implementation(node);
-        }
 
         /// <summary>
         ///     Iterative. Queue.
         ///     Time complexity: O(n).
         ///     Space complexity: O(n).
         /// </summary>
-        private static void LevelOrderIterativeImplementation(GenericNode<T> node)
+        public static void IterativeImplementation(GenericNode<T> node)
         {
             var queue = new Queue<GenericNode<T>>();
             queue.Enqueue(node);
@@ -61,7 +41,7 @@ namespace CSharp
         ///     Time complexity: O(n).
         ///     Space complexity: O(n).
         /// </summary>
-        private static void LevelOrderRecursiveImplementation(ICollection<GenericNode<T>> levelNodes)
+        public static void RecursiveImplementation(ICollection<GenericNode<T>> levelNodes)
         {
             if (!levelNodes.Any())
                 return;
@@ -73,12 +53,12 @@ namespace CSharp
                 nextLevelNodes.AddRange(node.Children.Where(child => child != null));
             }
 
-            LevelOrderRecursiveImplementation(nextLevelNodes);
+            RecursiveImplementation(nextLevelNodes);
         }
 
-        private static void LevelOrderRecursiveImplementation(GenericNode<T> rootNode)
+        public static void RecursiveImplementation(GenericNode<T> rootNode)
         {
-            LevelOrderRecursiveImplementation(new[] {rootNode});
+            RecursiveImplementation(new[] {rootNode});
         }
     }
 }

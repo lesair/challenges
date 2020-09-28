@@ -3,63 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using CSharp.Library.Tree;
 
-namespace CSharp
+namespace CSharp.Challenges
 {
-    public static class DepthFirstSearchTreeTraversal<T>
+    /// <summary>
+    ///     Traverses the expression tree in a depth first search way. For the tree being a binary tree, there are three
+    ///     traversal orderings possible: pre-order, in-order and post-order.
+    /// </summary>
+    /// <typeparam name="T">Node data type.</typeparam>
+    public static class TraverseBinaryTreeInDepthFirstSearchWay<T>
     {
-        public static IEnumerable<Action<BinaryNode<T>>> InOrderImplementations
-        {
-            get
-            {
-                return new Action<BinaryNode<T>>[]
-                {
-                    // TODO: An iterative in-order implementation for DepthFirstSearchTreeTraversal.
-                    InOrderRecursiveImplementation
-                };
-            }
-        }
-
-        public static IEnumerable<Action<BinaryNode<T>>> PreOrderImplementations
-        {
-            get
-            {
-                return new Action<BinaryNode<T>>[]
-                {
-                    PreOrderRecursiveImplementation,
-                    PreOrderIterativeImplementation
-                };
-            }
-        }
-
-        public static IEnumerable<Action<BinaryNode<T>>> PostOrderImplementations
-        {
-            get
-            {
-                return new Action<BinaryNode<T>>[]
-                {
-                    // TODO: An iterative post-order implementation for DepthFirstSearchTreeTraversal.
-                    PostOrderRecursiveImplementation
-                };
-            }
-        }
-
         /// <summary>
         ///     Action to execute when a node is visited.
         /// </summary>
         public static Action<BinaryNode<T>> Visit { get; set; }
-
-        /// <summary>
-        ///     Traverses the expression tree.
-        /// </summary>
-        /// <param name="node">Tree's root node start.</param>
-        /// <param name="implementation">Algorithm implementation to use.</param>
-        public static void Traverse(BinaryNode<T> node, Action<BinaryNode<T>> implementation = null)
-        {
-            if (implementation == null)
-                implementation = PreOrderRecursiveImplementation;
-
-            implementation(node);
-        }
 
         /// <summary>
         ///     Pre-orderly traversal.
@@ -67,7 +23,7 @@ namespace CSharp
         ///     Time complexity: O(n).
         ///     Space complexity: O(n).
         /// </summary>
-        private static void PreOrderRecursiveImplementation(BinaryNode<T> node)
+        public static void PreOrderRecursiveImplementation(BinaryNode<T> node)
         {
             if (node == null)
                 return;
@@ -83,11 +39,12 @@ namespace CSharp
         ///     Space complexity: O(n).
         /// </summary>
         /// <param name="node"></param>
-        private static void PreOrderIterativeImplementation(BinaryNode<T> node)
+        public static void PreOrderIterativeImplementation(BinaryNode<T> node)
         {
             if (node == null)
                 return;
-            var stack = new Stack<BinaryNode<T>>();
+            var
+                stack = new Stack<BinaryNode<T>>();
             stack.Push(node);
             while (stack.Any())
             {
@@ -105,7 +62,7 @@ namespace CSharp
         ///     Time complexity: O(n).
         ///     Space complexity: O(n).
         /// </summary>
-        private static void InOrderRecursiveImplementation(BinaryNode<T> node)
+        public static void InOrderRecursiveImplementation(BinaryNode<T> node)
         {
             if (node == null)
                 return;
@@ -120,7 +77,7 @@ namespace CSharp
         ///     Time complexity: O(n).
         ///     Space complexity: O(n).
         /// </summary>
-        private static void PostOrderRecursiveImplementation(BinaryNode<T> node)
+        public static void PostOrderRecursiveImplementation(BinaryNode<T> node)
         {
             if (node == null)
                 return;
