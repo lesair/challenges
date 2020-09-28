@@ -18,8 +18,18 @@ namespace CSharp.Library.Tree
         }
 
         public override IList<BinaryNode<TData>> Children { get; set; } = new BinaryNode<TData>[2];
-        public BinaryNode<TData> Left => Children[(int) BifurcationIndex.Left];
-        public BinaryNode<TData> Right => Children[(int) BifurcationIndex.Right];
+
+        public BinaryNode<TData> Left
+        {
+            get => Children[(int) BifurcationIndex.Left];
+            set => Children[(int) BifurcationIndex.Left] = value;
+        }
+
+        public BinaryNode<TData> Right
+        {
+            get => Children[(int) BifurcationIndex.Right];
+            set => Children[(int) BifurcationIndex.Right] = value;
+        }
     }
 
     public enum BifurcationIndex

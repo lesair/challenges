@@ -16,6 +16,7 @@ namespace CSharp.Library.Tree
             _nodes.Add(rootNodeName, rootNode);
         }
 
+        public GenericNode<T> Root => _nodes.First().Value;
         public GenericNode<T> this[string nodeName] => _nodes[nodeName];
 
         public void AddChildNodeToParent(string parentNodeName, T nodeData, string nodeName = null)
