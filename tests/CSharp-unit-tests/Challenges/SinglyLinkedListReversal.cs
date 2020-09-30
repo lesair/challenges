@@ -13,12 +13,11 @@ namespace CSharp
             TypeToTest = typeof(ReverseSinglyLinkedList<int>);
         }
 
-        private void TestImplementations(IEnumerable<int> linkedListData, ICollection<int> expectedReversedListData)
+        private void TestImplementations(IReadOnlyCollection<int> linkedListData, IReadOnlyCollection<int> expectedReversedListData)
         {
-            var headNode = SinglyLinkedListManager<int>.Create(linkedListData);
-
             foreach (var implementation in ImplementationsToTest())
             {
+                var headNode = SinglyLinkedListManager<int>.Create(linkedListData);
                 var reversedListHeadNode = (Node<int>) implementation.Invoke(null, new object[] {headNode});
                 var actualReversedListData = SinglyLinkedListManager<int>.GetData(reversedListHeadNode);
                 actualReversedListData.ShouldBe(expectedReversedListData);
