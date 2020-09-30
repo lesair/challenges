@@ -15,16 +15,16 @@ namespace CSharp.Challenges
         ///     Action to execute when a node is visited.
         /// </summary>
         /// <typeparam name="T">Node data type.</typeparam>
-        public static Action<GenericNode<T>> Visit { get; set; }
+        public static Action<BinaryNode<T>> Visit { get; set; }
 
         /// <summary>
         ///     Iterative. Queue.
         ///     Time complexity: O(n).
         ///     Space complexity: O(n).
         /// </summary>
-        public static void IterativeImplementation(GenericNode<T> node)
+        public static void IterativeImplementation(BinaryNode<T> node)
         {
-            var queue = new Queue<GenericNode<T>>();
+            var queue = new Queue<BinaryNode<T>>();
             queue.Enqueue(node);
             while (queue.Any())
             {
@@ -36,17 +36,12 @@ namespace CSharp.Challenges
             }
         }
 
-        /// <summary>
-        ///     Recursive. LINQ.
-        ///     Time complexity: O(n).
-        ///     Space complexity: O(n).
-        /// </summary>
-        public static void RecursiveImplementation(ICollection<GenericNode<T>> levelNodes)
+        private static void RecursiveImplementation(ICollection<BinaryNode<T>> levelNodes)
         {
             if (!levelNodes.Any())
                 return;
 
-            var nextLevelNodes = new List<GenericNode<T>>();
+            var nextLevelNodes = new List<BinaryNode<T>>();
             foreach (var node in levelNodes) // From left to right.
             {
                 Visit(node);
@@ -56,7 +51,12 @@ namespace CSharp.Challenges
             RecursiveImplementation(nextLevelNodes);
         }
 
-        public static void RecursiveImplementation(GenericNode<T> rootNode)
+        /// <summary>
+        ///     Recursive. LINQ.
+        ///     Time complexity: O(n).
+        ///     Space complexity: O(n).
+        /// </summary>
+        public static void RecursiveImplementation(BinaryNode<T> rootNode)
         {
             RecursiveImplementation(new[] {rootNode});
         }
