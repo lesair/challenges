@@ -10,7 +10,7 @@ namespace CSharp
     {
         public BinaryTreeBreadthFirstSearchTraversal()
         {
-            TypeToTest = typeof(BinaryTreeBreadthFirstSearchTraversal);
+            TypeToTest = typeof(TraverseBinaryTreeInBreadthFirstSearchWay<char>);
 
             //           F
             //          / \
