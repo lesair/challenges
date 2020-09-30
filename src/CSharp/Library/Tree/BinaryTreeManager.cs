@@ -4,33 +4,56 @@ using Ardalis.GuardClauses;
 
 namespace CSharp.Library.Tree
 {
+    /// <summary>
+    ///     A <see cref="BinaryTreeManager{TData}" /> constructor.
+    /// </summary>
     public sealed class BinaryTreeManager
     {
-        public static BinaryTreeManager<T> Create<T>(IEnumerable<T?> nodesData) where T : struct
+        /// <summary>
+        ///     Creates a <see cref="BinaryTreeManager{TData}" /> using an enumeration of nullable <see cref="TData" /> value-type
+        ///     elements.
+        /// </summary>
+        /// <typeparam name="TData">The non-nullable value-type tree nodes data property data type.</typeparam>
+        /// <param name="nodesData">
+        ///     An enumeration of nullable value-type elements used to construct the binary tree. Null elements
+        ///     are considered leaf nodes.
+        /// </param>
+        /// <returns>The created <see cref="BinaryTreeManager{TData}" /></returns>
+        public static BinaryTreeManager<TData> Create<TData>(IEnumerable<TData?> nodesData) where TData : struct
         {
             var nodes = nodesData.Select(nodeData =>
             {
-                var node = nodeData.HasValue ? new BinaryNode<T>(nodeData.Value) : null;
+                var node = nodeData.HasValue ? new BinaryNode<TData>(nodeData.Value) : null;
                 return node;
             });
             return ConnectNodes(nodes);
         }
 
-        public static BinaryTreeManager<T> Create<T>(IEnumerable<T> nodesData) where T : class
+        /// <summary>
+        ///     Creates a <see cref="BinaryTreeManager{TData}" /> using an enumeration of <see cref="TData" /> reference-type
+        ///     elements.
+        /// </summary>
+        /// <typeparam name="TData">The reference-type tree nodes data property data type.</typeparam>
+        /// <param name="nodesData">
+        ///     An enumeration of reference-type elements used to construct the binary tree. Null elements are considered leaf
+        ///     nodes.
+        /// </param>
+        /// <returns>The created <see cref="BinaryTreeManager{TData}" /></returns>
+        public static BinaryTreeManager<TData> Create<TData>(IEnumerable<TData> nodesData) where TData : class
         {
             var nodes = nodesData.Select(nodeData =>
             {
-                var node = nodeData != null ? new BinaryNode<T>(nodeData) : null;
+                var node = nodeData != null ? new BinaryNode<TData>(nodeData) : null;
                 return node;
             });
             return ConnectNodes(nodes);
         }
 
-        private static BinaryTreeManager<T> ConnectNodes<T>(IEnumerable<BinaryNode<T>> nodes)
+        private static BinaryTreeManager<TData> ConnectNodes<TData>(IEnumerable<BinaryNode<TData>> nodes)
         {
-            var binaryTreeManager = new BinaryTreeManager<T>();
-            var parentsQueue = new Queue<BinaryNode<T>>();
-            BinaryNode<T> currentParent = null;
+            var binaryTreeManager = new BinaryTreeManager<TData>();
+            var parentsQueue = new Queue<BinaryNode<TData>>();
+            BinaryNode<TData> currentParent = null;
             var childCounter = 0;
             foreach (var node in nodes)
             {
@@ -55,23 +78,27 @@ namespace CSharp.Library.Tree
         }
     }
 
-    public sealed class BinaryTreeManager<T>
+    /// <summary>
+    ///     Helper class for creating and manipulating binary trees.
+    /// </summary>
+    /// <typeparam name="TData">Nodes data property data type.</typeparam>
+    public sealed class BinaryTreeManager<TData>
     {
-        private readonly Dictionary<string, BinaryNode<T>> _nodes = new Dictionary<string, BinaryNode<T>>();
+        private readonly Dictionary<string, BinaryNode<TData>> _nodes = new Dictionary<string, BinaryNode<TData>>();
 
         internal BinaryTreeManager()
         {
         }
 
-        public BinaryTreeManager(T rootNodeData, string rootNodeName = null)
+        public BinaryTreeManager(TData rootNodeData, string rootNodeName = null)
         {
             AddNode(rootNodeData, rootNodeName);
         }
 
-        public BinaryNode<T> Root => _nodes.First().Value;
-        public BinaryNode<T> this[string nodeName] => _nodes[nodeName];
+        public BinaryNode<TData> Root => _nodes.First().Value;
+        public BinaryNode<TData> this[string nodeName] => _nodes[nodeName];
 
-        public void AddChildNodeToParent(string parentNodeName, BifurcationIndex index, T nodeData,
+        public void AddChildNodeToParent(string parentNodeName, BifurcationIndex index, TData nodeData,
             string nodeName = null)
         {
             Guard.Against.Null(parentNodeName, nameof(parentNodeName));
@@ -88,28 +115,28 @@ namespace CSharp.Library.Tree
             }
         }
 
-        public void AddChildrenNodesToParent(string parentNodeName, T leftNodeData, T rightNodeData,
+        public void AddChildrenNodesToParent(string parentNodeName, TData leftNodeData, TData rightNodeData,
             string leftNodeName = null, string rightNodeName = null)
         {
             AddChildNodeToParent(parentNodeName, BifurcationIndex.Left, leftNodeData, leftNodeName);
             AddChildNodeToParent(parentNodeName, BifurcationIndex.Right, rightNodeData, rightNodeName);
         }
 
-        internal BinaryNode<T> AddNode(T nodeData, string nodeName = null)
+        internal BinaryNode<TData> AddNode(TData nodeData, string nodeName = null)
         {
             nodeName = GetValidNodeName(nodeName, nodeData);
-            var node = new BinaryNode<T>(nodeData);
+            var node = new BinaryNode<TData>(nodeData);
             _nodes.Add(nodeName, node);
             return node;
         }
 
-        internal void AddNode(BinaryNode<T> node, string nodeName = null)
+        internal void AddNode(BinaryNode<TData> node, string nodeName = null)
         {
             nodeName = GetValidNodeName(nodeName, node.Data);
             _nodes.Add(nodeName, node);
         }
 
-        private string GetValidNodeName(string nodeName, T nodeData)
+        private string GetValidNodeName(string nodeName, TData nodeData)
         {
             if (string.IsNullOrEmpty(nodeName))
                 nodeName = nodeData.ToString();
