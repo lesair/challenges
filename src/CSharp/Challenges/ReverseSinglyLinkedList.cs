@@ -30,5 +30,22 @@ namespace CSharp.Challenges
 
             return previousNode;
         }
+
+        /// <summary>
+        ///     Recursive. Elegant.
+        ///     Time complexity: O(n).
+        ///     Space complexity: O(n).
+        /// </summary>
+        public static Node<TData> ReverseList(Node<TData> currentNode)
+        {
+            if (currentNode?.Next == null)
+                return currentNode;
+
+            var tailNode = ReverseList(currentNode.Next);
+            currentNode.Next.Next = currentNode;
+            currentNode.Next = null;
+
+            return tailNode;
+        }
     }
 }
