@@ -11,6 +11,7 @@ namespace CSharp.Challenges
     {
         /// <summary>
         ///     Iterative.
+        ///     Multiple pointers manipulation.
         ///     Time complexity: O(n).
         ///     Space complexity: O(n).
         /// </summary>
@@ -33,6 +34,7 @@ namespace CSharp.Challenges
 
         /// <summary>
         ///     Recursive. Elegant.
+        ///     Multiple pointers manipulation.
         ///     Time complexity: O(n).
         ///     Space complexity: O(n).
         /// </summary>
