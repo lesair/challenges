@@ -6,18 +6,19 @@ using Xunit;
 
 namespace CSharp
 {
-    public class SinglyLinkedListReversal : BaseTest
+    public class LinkedListReversal : BaseTest
     {
-        public SinglyLinkedListReversal()
+        public LinkedListReversal()
         {
-            TypeToTest = typeof(ReverseSinglyLinkedList<int>);
+            TypeToTest = typeof(ReverseLinkedList<int>);
         }
 
-        private void TestImplementations(IReadOnlyCollection<int> linkedListData, IReadOnlyCollection<int> expectedReversedListData)
+        private void TestImplementations(IReadOnlyCollection<int> linkedListData,
+            IReadOnlyCollection<int> expectedReversedListData)
         {
             foreach (var implementation in ImplementationsToTest())
             {
-                var headNode = SinglyLinkedListManager<int>.Create(linkedListData);
+                var headNode = new SinglyLinkedListManager<int>().Create(linkedListData);
                 var reversedListHeadNode = (Node<int>) implementation.Invoke(null, new object[] {headNode});
                 var actualReversedListData = SinglyLinkedListManager<int>.GetData(reversedListHeadNode);
                 actualReversedListData.ShouldBe(expectedReversedListData);

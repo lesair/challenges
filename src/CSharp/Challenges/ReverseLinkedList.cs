@@ -7,7 +7,7 @@ namespace CSharp.Challenges
     ///     Source: LeetCode
     ///     https://leetcode.com/problems/reverse-linked-list/
     /// </summary>
-    public static class ReverseSinglyLinkedList<TData>
+    public static class ReverseLinkedList<TData>
     {
         /// <summary>
         ///     Iterative.
