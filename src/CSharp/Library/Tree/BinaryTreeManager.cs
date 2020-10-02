@@ -124,7 +124,7 @@ namespace CSharp.Library.Tree
 
         internal BinaryNode<TData> AddNode(TData nodeData, string nodeName = null)
         {
-            nodeName = GetValidNodeName(nodeName, nodeData);
+            nodeName = Helpers.GetValidNodeName(nodeData, nodeName, s => _nodes.ContainsKey(s));
             var node = new BinaryNode<TData>(nodeData);
             _nodes.Add(nodeName, node);
             return node;
@@ -132,19 +132,8 @@ namespace CSharp.Library.Tree
 
         internal void AddNode(BinaryNode<TData> node, string nodeName = null)
         {
-            nodeName = GetValidNodeName(nodeName, node.Data);
+            nodeName = Helpers.GetValidNodeName(node.Data, nodeName, s => _nodes.ContainsKey(s));
             _nodes.Add(nodeName, node);
-        }
-
-        private string GetValidNodeName(string nodeName, TData nodeData)
-        {
-            if (string.IsNullOrEmpty(nodeName))
-                nodeName = nodeData.ToString();
-            var n = 0;
-            var newNodeName = nodeName;
-            while (_nodes.ContainsKey(newNodeName))
-                newNodeName = $"{nodeName}({++n})";
-            return newNodeName;
         }
     }
 }
