@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace CSharp.Library.SinglyLinkedList
 {
@@ -8,29 +9,31 @@ namespace CSharp.Library.SinglyLinkedList
     /// <typeparam name="TData">Nodes data property data type.</typeparam>
     public sealed class SinglyLinkedListManager<TData>
     {
+        private readonly Dictionary<string, Node<TData>> _nodes = new Dictionary<string, Node<TData>>();
+        public Node<TData> Head => _nodes.FirstOrDefault().Value;
+        public Node<TData> this[string nodeName] => _nodes[nodeName];
+
         /// <summary>
         ///     Creates a singly linked list based on the nodes data.
         /// </summary>
         /// <param name="nodesData">Nodes data to use for each linked node.</param>
         /// <returns>The linked list head node, or null if <see cref="nodesData" /> is empty or null.</returns>
-        public static Node<TData> Create(IEnumerable<TData> nodesData)
+        public Node<TData> Create(IEnumerable<TData> nodesData)
         {
             if (nodesData == null)
                 return null;
 
-            Node<TData> headNode = null;
             Node<TData> previousNode = null;
             foreach (var nodeData in nodesData)
             {
                 var node = new Node<TData>(nodeData);
-                if (headNode == null)
-                    headNode = node;
+                AddNode(node);
                 if (previousNode != null)
                     previousNode.Next = node;
                 previousNode = node;
             }
 
-            return headNode;
+            return Head;
         }
 
         /// <summary>
@@ -45,6 +48,12 @@ namespace CSharp.Library.SinglyLinkedList
                 yield return node.Data;
                 node = node.Next;
             }
+        }
+
+        internal void AddNode(Node<TData> node, string nodeName = null)
+        {
+            nodeName = Helpers.GetValidNodeName(node.Data, nodeName, s => _nodes.ContainsKey(s));
+            _nodes.Add(nodeName, node);
         }
     }
 }
