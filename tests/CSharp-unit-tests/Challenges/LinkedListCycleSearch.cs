@@ -30,6 +30,13 @@ namespace CSharp
             TestImplementations(headNode, expectedResult);
         }
 
+        [Fact]
+        public void ReturnsFalseWhenLinkedListIsNull()
+        {
+            const bool expectedResult = false;
+            TestImplementations(null, expectedResult);
+        }
+
 
         [Fact]
         public void ReturnsFalseWhenThereAreNoCycles()
