@@ -20,20 +20,14 @@ namespace CSharp.Challenges
         /// </summary>
         public static bool Implementation(Node<int> head)
         {
-            var fastTraverse = head;
+            var fastTraverse = head?.Next;
             var slowTraverse = head;
-            var timing = 0;
             while (fastTraverse != null && slowTraverse != null)
             {
-                fastTraverse = fastTraverse.Next;
-                if (timing > 0 && timing % 2 == 0)
-                {
-                    slowTraverse = slowTraverse.Next;
-                    if (fastTraverse == slowTraverse)
-                        return true;
-                }
-
-                timing++;
+                if (fastTraverse == slowTraverse || fastTraverse.Next == slowTraverse)
+                    return true;
+                fastTraverse = fastTraverse.Next?.Next;
+                slowTraverse = slowTraverse.Next;
             }
 
             return false;
