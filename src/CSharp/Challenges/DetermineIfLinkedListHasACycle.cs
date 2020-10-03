@@ -16,7 +16,7 @@ namespace CSharp.Challenges
         /// <summary>
         ///     Iterative.
         ///     Time complexity: O(n).
-        ///     Space complexity: O(n).
+        ///     Space complexity: O(1).
         /// </summary>
         public static bool Implementation(Node<int> head)
         {
