@@ -14,7 +14,7 @@ namespace CSharp.Challenges
     public static class AddMinimumToBalanceBracketSequence
     {
         /// <summary>
-        ///     Iterative. LINQ.
+        ///     Iterative. Stack. LINQ.
         ///     Time complexity: O(n).
         ///     Space complexity: O(n).
         /// </summary>
