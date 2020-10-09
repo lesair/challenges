@@ -4,11 +4,11 @@ using Xunit;
 
 namespace CSharp
 {
-    public class MatchingParenthesesValidation : BaseTest
+    public class BracketSequenceBalanceValidation : BaseTest
     {
-        public MatchingParenthesesValidation()
+        public BracketSequenceBalanceValidation()
         {
-            TypeToTest = typeof(ValidateMatchingParentheses);
+            TypeToTest = typeof(ValidateBracketSequenceIsBalanced);
         }
 
         private void TestImplementations(string s, bool expectedResult)
