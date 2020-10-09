@@ -14,7 +14,7 @@ namespace CSharp.Challenges
     public static class AddMinimumToBalanceBracketSequence
     {
         /// <summary>
-        ///     Iterative.
+        ///     Iterative. LINQ.
         ///     Time complexity: O(n).
         ///     Space complexity: O(n).
         /// </summary>
@@ -32,17 +32,9 @@ namespace CSharp.Challenges
                 stack.Push(c);
             }
 
-            var minToAdd = stack.Count;
-            while (stack.Any())
-            {
-                var c = stack.Pop();
-                if (c == ')')
-                    s = "(" + s;
-                else
-                    s += ")";
-            }
+            s = stack.Aggregate(s, (current, c) => c == ')' ? "(" + current : current + ")");
 
-            return (minToAdd, s);
+            return (stack.Count, s);
         }
     }
 }
