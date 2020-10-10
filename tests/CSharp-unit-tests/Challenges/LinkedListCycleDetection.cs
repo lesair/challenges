@@ -5,11 +5,11 @@ using Xunit;
 
 namespace CSharp
 {
-    public class LinkedListCycleSearch : BaseTest
+    public class LinkedListCycleDetection : BaseTest
     {
-        public LinkedListCycleSearch()
+        public LinkedListCycleDetection()
         {
-            TypeToTest = typeof(DetermineIfLinkedListHasACycle);
+            TypeToTest = typeof(DetectCycleInLinkedList);
         }
 
         private void TestImplementations(Node<int> head, bool expectedResult)

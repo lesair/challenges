@@ -11,23 +11,26 @@ namespace CSharp.Challenges
     ///     Source: Alan Chávez
     ///     https://youtu.be/0fpcIuvcRI0?t=211
     /// </summary>
-    public static class DetermineIfLinkedListHasACycle
+    public static class DetectCycleInLinkedList
     {
         /// <summary>
+        ///     Author: Robert W. Floyd
+        ///     https://en.wikipedia.org/wiki/Cycle_detection#Floyd's_Tortoise_and_Hare
         ///     Iterative.
-        ///     Time complexity: O(n).
+        ///     Time complexity: O(λ + μ).
         ///     Space complexity: O(1).
         /// </summary>
-        public static bool Implementation(Node<int> head)
+        // ReSharper disable once IdentifierTypo
+        public static bool FloydsTortoiseAndHareImplementation(Node<int> head)
         {
-            var fastTraverse = head?.Next;
-            var slowTraverse = head;
-            while (fastTraverse != null && slowTraverse != null)
+            var hare = head?.Next;
+            var tortoise = head;
+            while (hare != null && tortoise != null)
             {
-                if (fastTraverse == slowTraverse || fastTraverse.Next == slowTraverse)
+                if (hare == tortoise || hare.Next == tortoise)
                     return true;
-                fastTraverse = fastTraverse.Next?.Next;
-                slowTraverse = slowTraverse.Next;
+                hare = hare.Next?.Next;
+                tortoise = tortoise.Next;
             }
 
             return false;
