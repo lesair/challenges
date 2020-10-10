@@ -15,7 +15,7 @@ namespace CSharp.Challenges
         /// <summary>
         ///     Author: Robert W. Floyd
         ///     https://en.wikipedia.org/wiki/Cycle_detection#Floyd's_Tortoise_and_Hare
-        ///     Iterative.
+        ///     Iterative. Linked list.
         ///     Time complexity: O(λ + μ).
         ///     Space complexity: O(1).
         /// </summary>
