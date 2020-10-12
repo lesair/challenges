@@ -43,8 +43,7 @@ namespace CSharp.Challenges
         {
             if (node == null)
                 return;
-            var
-                stack = new Stack<BinaryNode<T>>();
+            var stack = new Stack<BinaryNode<T>>();
             stack.Push(node);
             while (stack.Any())
             {
