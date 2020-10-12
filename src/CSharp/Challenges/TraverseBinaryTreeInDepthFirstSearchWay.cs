@@ -8,6 +8,7 @@ namespace CSharp.Challenges
     /// <summary>
     ///     Traverses the expression tree in a depth first search way. For the tree being a binary tree, there are three
     ///     traversal orderings possible: pre-order, in-order and post-order.
+    ///     https://en.wikipedia.org/wiki/Tree_traversal
     /// </summary>
     /// <typeparam name="T">Node data type.</typeparam>
     public static class TraverseBinaryTreeInDepthFirstSearchWay<T>
