@@ -21,7 +21,7 @@ namespace CSharp.Challenges
         ///     Pre-orderly traversal.
         ///     Recursive.
         ///     Time complexity: O(n).
-        ///     Space complexity: O(n).
+        ///     Space complexity: O(h).
         /// </summary>
         public static void PreOrderRecursiveImplementation(BinaryNode<T> node)
         {
@@ -36,7 +36,7 @@ namespace CSharp.Challenges
         ///     Pre-orderly traversal.
         ///     Iterative. Stack.
         ///     Time complexity: O(n).
-        ///     Space complexity: O(n).
+        ///     Space complexity: O(h).
         /// </summary>
         /// <param name="node"></param>
         public static void PreOrderIterativeImplementation(BinaryNode<T> node)
@@ -59,7 +59,7 @@ namespace CSharp.Challenges
         ///     In-orderly traversal.
         ///     Recursive.
         ///     Time complexity: O(n).
-        ///     Space complexity: O(n).
+        ///     Space complexity: O(h).
         /// </summary>
         public static void InOrderRecursiveImplementation(BinaryNode<T> node)
         {
@@ -97,7 +97,7 @@ namespace CSharp.Challenges
         ///     Post-orderly traversal.
         ///     Recursive.
         ///     Time complexity: O(n).
-        ///     Space complexity: O(n).
+        ///     Space complexity: O(h).
         /// </summary>
         public static void PostOrderRecursiveImplementation(BinaryNode<T> node)
         {
