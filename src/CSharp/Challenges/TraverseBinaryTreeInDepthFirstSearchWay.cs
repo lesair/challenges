@@ -72,6 +72,29 @@ namespace CSharp.Challenges
         }
 
         /// <summary>
+        ///     In-orderly traversal.
+        ///     Iterative. Stack.
+        ///     Time complexity: O(n).
+        ///     Space complexity: O(h).
+        /// </summary>
+        public static void InOrderIterativeImplementation(BinaryNode<T> node)
+        {
+            var stack = new Stack<BinaryNode<T>>();
+            while (stack.Any() || node != null)
+                if (node != null)
+                {
+                    stack.Push(node);
+                    node = node.Left;
+                }
+                else
+                {
+                    node = stack.Pop();
+                    Visit(node);
+                    node = node.Right;
+                }
+        }
+
+        /// <summary>
         ///     Post-orderly traversal.
         ///     Recursive.
         ///     Time complexity: O(n).
@@ -84,6 +107,39 @@ namespace CSharp.Challenges
             PostOrderRecursiveImplementation(node.Left);
             PostOrderRecursiveImplementation(node.Right);
             Visit(node);
+        }
+
+        /// <summary>
+        ///     Post-orderly traversal.
+        ///     Iterative. Stack.
+        ///     Time complexity: O(n).
+        ///     Space complexity: O(h).
+        /// </summary>
+        public static void PostOrderIterativeImplementation(BinaryNode<T> node)
+        {
+            var stack = new Stack<BinaryNode<T>>();
+            BinaryNode<T> lastNodeVisited = null;
+            while (stack.Any() || node != null)
+                if (node != null)
+                {
+                    stack.Push(node);
+                    node = node.Left;
+                }
+                else
+                {
+                    var peekNode = stack.Peek();
+                    // if right child exists and traversing node
+                    // from left child, then move right
+                    if (peekNode.Right != null && lastNodeVisited != peekNode.Right)
+                    {
+                        node = peekNode.Right;
+                    }
+                    else
+                    {
+                        Visit(peekNode);
+                        lastNodeVisited = stack.Pop();
+                    }
+                }
         }
     }
 }
