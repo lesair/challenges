@@ -13,36 +13,76 @@ namespace CSharp.Challenges
     ///     Source: Joma Tech
     ///     https://youtu.be/HTXTVfBCeSY?t=390
     /// </summary>
-    public class MedianFinder
+    public abstract class MedianFinder
     {
-        private readonly List<int> _sortedList;
+        protected readonly List<int> SortedList;
 
-        public MedianFinder()
+        protected MedianFinder()
         {
-            _sortedList = new List<int>();
+            SortedList = new List<int>();
         }
 
+        public abstract void AddNum(int num);
+
+        public virtual double FindMedian()
+        {
+            var middleIndex = SortedList.Count / 2d;
+            var result = SortedList.Count % 2 == 0
+                ? (SortedList[(int) middleIndex - 1] + SortedList[(int) middleIndex]) / 2d
+                : SortedList[(int) middleIndex];
+            return result;
+        }
+    }
+
+    public class BuiltInBinarySearchImplementation : MedianFinder
+    {
         /// <summary>
-        ///     Binary search.
+        ///     Built-in binary search.
         ///     Time complexity: O(n log n).
         ///     Space complexity: O(n).
         /// </summary>
-        public void AddNum(int num)
+        public override void AddNum(int num)
         {
-            var index = _sortedList.BinarySearch(num);
+            var index = SortedList.BinarySearch(num);
             if (index < 0)
-                _sortedList.Insert(~index, num);
+                SortedList.Insert(~index, num);
             else
-                _sortedList.Insert(index, num);
+                SortedList.Insert(index, num);
         }
+    }
 
-        public double FindMedian()
+    public class InsertionSortImplementation : MedianFinder
+    {
+        /// <summary>
+        ///     Iterative.
+        ///     Manual binary search.
+        ///     https://en.wikipedia.org/wiki/Binary_search_algorithm
+        ///     Time complexity: O(n log n).
+        ///     Space complexity: O(n).
+        /// </summary>
+        public override void AddNum(int num)
         {
-            var middleIndex = _sortedList.Count / 2d;
-            var result = _sortedList.Count % 2 == 0
-                ? (_sortedList[(int) middleIndex - 1] + _sortedList[(int) middleIndex]) / 2d
-                : _sortedList[(int) middleIndex];
-            return result;
+            int BinarySearch()
+            {
+                var l = 0;
+                var r = SortedList.Count - 1;
+
+                while (l <= r)
+                {
+                    var m = (l + r) / 2;
+                    if (SortedList[m] == num)
+                        return m;
+                    if (SortedList[m] < num)
+                        l = m + 1;
+                    if (SortedList[m] > num)
+                        r = m - 1;
+                }
+
+                return l;
+            }
+
+            var index = BinarySearch();
+            SortedList.Insert(index, num);
         }
     }
 }
