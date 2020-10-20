@@ -9,7 +9,7 @@ namespace CSharp
         public DataStreamMedianSearch()
         {
             _implementations = new MedianFinder[]
-                {new BuiltInBinarySearchImplementation(), new InsertionSortImplementation()};
+                {new BuiltInBinarySearchImplementation(), new ManualBinarySearchImplementation()};
         }
 
         private readonly MedianFinder[] _implementations;

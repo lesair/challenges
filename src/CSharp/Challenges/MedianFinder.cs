@@ -51,7 +51,7 @@ namespace CSharp.Challenges
         }
     }
 
-    public class InsertionSortImplementation : MedianFinder
+    public class ManualBinarySearchImplementation : MedianFinder
     {
         /// <summary>
         ///     Iterative.
