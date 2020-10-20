@@ -33,7 +33,6 @@ namespace CSharp
             TestImplementations(integers, target, expectedStart, expectedEnd);
         }
 
-
         [Fact]
         public void ReturnsDuplicatedElementStartAndEndingPositionsTestCase02()
         {
