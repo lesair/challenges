@@ -6,7 +6,7 @@ namespace CSharp.Challenges
     ///     Find a pair of numbers such that they add up to a target sum.
     ///     Source: LeetCode
     ///     https://leetcode.com/problems/two-sum/
-    ///     Source:  Google
+    ///     Source: Google
     ///     https://youtu.be/XKu_SEDAykw
     /// </summary>
     public static class FindPairThatAddUpToTarget
