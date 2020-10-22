@@ -10,6 +10,8 @@ namespace CSharp.Challenges
     ///     unique characters.
     ///     Source: LeetCode
     ///     https://leetcode.com/problems/maximum-length-of-a-concatenated-string-with-unique-characters/
+    ///     Source: Kevin Naughton Jr.
+    ///     https://youtu.be/pD3cHFNyW2I
     /// </summary>
     public static class FindMaximumLengthOfStringWithUniqueCharacters
     {

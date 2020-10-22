@@ -25,7 +25,7 @@ namespace CSharp.Challenges
         }
 
         /// <summary>
-        ///     Iterative, manual.
+        ///     Iterative. Manual.
         ///     Multiple pointers manipulation.
         ///     Time complexity: O(n).
         ///     Space complexity: O(n).
