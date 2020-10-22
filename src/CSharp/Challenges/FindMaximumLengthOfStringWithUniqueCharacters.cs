@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using CSharp.Library.Extensions;
 
-namespace CSharp
+namespace CSharp.Challenges
 {
     /// <summary>
     ///     Gets the maximum length of a string that results from the concatenation of a sub-sequence of strings which have
