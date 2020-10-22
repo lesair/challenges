@@ -17,7 +17,7 @@ namespace CSharp.Challenges
         ///     Time complexity: O(n).
         ///     Space complexity: O(n).
         /// </summary>
-        public static IEnumerable<int> IterativeImplementation(IList<int> integers1, IList<int> integers2)
+        public static IEnumerable<int> ManualImplementation(IList<int> integers1, IList<int> integers2)
         {
             var i1 = 0;
             var i2 = 0;
