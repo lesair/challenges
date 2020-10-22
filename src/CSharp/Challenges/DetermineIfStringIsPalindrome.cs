@@ -8,7 +8,7 @@ namespace CSharp.Challenges
     ///     https://codeblog.jonskeet.uk/2009/11/02/omg-ponies-aka-humanity-epic-fail/are) are out of scope of this challenge.
     ///     Source: Code Golf Stack Exchange
     ///     https://codegolf.stackexchange.com/questions/11155/shortest-code-to-determine-if-a-string-is-a-palindrome
-    ///     Source: Working at Microsoft YouTube channel.
+    ///     Source: Microsoft
     ///     https://youtu.be/8Myx-vy0csM?t=283
     /// </summary>
     public static class DetermineIfStringIsPalindrome
