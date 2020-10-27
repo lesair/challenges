@@ -4,11 +4,14 @@ using System.Linq;
 namespace CSharp.Challenges
 {
     /// <summary>
-    ///     Validates if a brackets sequence contains a valid combination of opening and closing brackets and respecting the nesting order.
+    ///     Validates if a brackets sequence contains a valid combination of opening and closing brackets and respecting the
+    ///     nesting order.
     ///     Source: LeetCode
     ///     https://leetcode.com/problems/valid-parentheses/
     ///     Source: Competitive Programming Algorithms
     ///     https://cp-algorithms.com/combinatorics/bracket_sequences.html
+    ///     Source: Interview Cake
+    ///     https://www.interviewcake.com/question/csharp/bracket-validator
     /// </summary>
     public static class ValidateBracketSequenceIsBalanced
     {
