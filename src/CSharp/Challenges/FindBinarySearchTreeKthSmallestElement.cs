@@ -15,7 +15,7 @@ namespace CSharp.Challenges
         ///     Recursive.
         ///     In-orderly traversal.
         ///     Time complexity: O(k).
-        ///     Space complexity: O(h) (space in the call stack due to recursion).
+        ///     Space complexity: O(k) (space in the call stack due to recursion).
         /// </summary>
         public static int? RecursiveImplementation(BinaryNode<int> node, int k)
         {
@@ -44,7 +44,7 @@ namespace CSharp.Challenges
         ///     Iterative. Stack.
         ///     In-orderly traversal.
         ///     Time complexity: O(k).
-        ///     Space complexity: O(1).
+        ///     Space complexity: O(k).
         /// </summary>
         public static int? IterativeImplementation(BinaryNode<int> node, int k)
         {
