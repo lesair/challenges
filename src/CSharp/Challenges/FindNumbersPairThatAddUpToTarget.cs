@@ -9,7 +9,7 @@ namespace CSharp.Challenges
     ///     Source: Google
     ///     https://youtu.be/XKu_SEDAykw
     /// </summary>
-    public static class FindPairThatAddUpToTarget
+    public static class FindNumbersPairThatAddUpToTarget
     {
         /// <summary>
         ///     Iterative.
@@ -17,7 +17,7 @@ namespace CSharp.Challenges
         ///     Time complexity: O(n).
         ///     Space complexity: O(n).
         /// </summary>
-        public static (int i1, int i2) BuiltInBinarySearchImplementation(IList<int> integers, int target)
+        public static (int i1, int i2) IterativeImplementation(IList<int> integers, int target)
         {
             var dictionary = new Dictionary<int, int>();
             for (var i = 0; i < integers.Count; i++)

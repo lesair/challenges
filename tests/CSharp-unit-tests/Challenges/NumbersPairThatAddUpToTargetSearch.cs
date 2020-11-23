@@ -5,11 +5,11 @@ using Xunit;
 
 namespace CSharp
 {
-    public class PairThatAddUpToTargetSearch : BaseTest
+    public class NumbersPairThatAddUpToTargetSearch : BaseTest
     {
-        public PairThatAddUpToTargetSearch()
+        public NumbersPairThatAddUpToTargetSearch()
         {
-            TypeToTest = typeof(FindPairThatAddUpToTarget);
+            TypeToTest = typeof(FindNumbersPairThatAddUpToTarget);
         }
 
         private void TestImplementations(IEnumerable integers, int target, (int i1, int i2) expectedIndices)
