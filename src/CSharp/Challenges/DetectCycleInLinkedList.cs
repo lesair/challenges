@@ -10,6 +10,8 @@ namespace CSharp.Challenges
     ///     https://youtu.be/MFOAbpfrJ8g
     ///     Source: Alan Chávez
     ///     https://youtu.be/0fpcIuvcRI0?t=211
+    ///     Source: Interview Cake.
+    ///     https://www.interviewcake.com/question/csharp/linked-list-cycles
     /// </summary>
     public static class DetectCycleInLinkedList
     {
