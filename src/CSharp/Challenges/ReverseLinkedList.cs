@@ -13,7 +13,7 @@ namespace CSharp.Challenges
         ///     Iterative.
         ///     Multiple pointers manipulation.
         ///     Time complexity: O(n).
-        ///     Space complexity: O(n).
+        ///     Space complexity: O(1).
         /// </summary>
         public static Node<TData> IterativeImplementation(Node<TData> currentNode)
         {
@@ -33,21 +33,43 @@ namespace CSharp.Challenges
         }
 
         /// <summary>
-        ///     Recursive. Elegant.
+        ///     Recursive. Compact. Elegant.
         ///     Multiple pointers manipulation.
         ///     Time complexity: O(n).
-        ///     Space complexity: O(n).
+        ///     Space complexity: O(1).
         /// </summary>
-        public static Node<TData> ReverseList(Node<TData> currentNode)
+        public static Node<TData> RecursiveCompactImplementation(Node<TData> currentNode)
         {
             if (currentNode?.Next == null)
                 return currentNode;
 
-            var tailNode = ReverseList(currentNode.Next);
+            var tailNode = RecursiveCompactImplementation(currentNode.Next);
             currentNode.Next.Next = currentNode;
             currentNode.Next = null;
 
             return tailNode;
+        }
+
+        /// <summary>
+        ///     Recursive. Easy to follow.
+        ///     Multiple pointers manipulation.
+        ///     Time complexity: O(n).
+        ///     Space complexity: O(1).
+        /// </summary>
+        public static Node<TData> RecursiveEasyImplementation(Node<TData> head)
+        {
+            static Node<TData> Traverse(Node<TData> previousNode, Node<TData> currentNode)
+            {
+                if (currentNode == null)
+                    return null;
+
+                var nextNode = currentNode.Next;
+                currentNode.Next = previousNode;
+
+                return nextNode != null ? Traverse(currentNode, nextNode) : currentNode;
+            }
+
+            return Traverse(null, head);
         }
     }
 }
