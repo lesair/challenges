@@ -95,7 +95,7 @@ namespace CSharp.Library.Tree
             AddNode(rootNodeData, rootNodeName);
         }
 
-        public BinaryNode<TData> Root => _nodes.First().Value;
+        public BinaryNode<TData> Root => _nodes.FirstOrDefault().Value;
         public BinaryNode<TData> this[string nodeName] => _nodes[nodeName];
 
         public void AddChildNodeToParent(string parentNodeName, BifurcationIndex index, TData nodeData,
