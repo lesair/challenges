@@ -7,7 +7,7 @@ namespace CSharp.Challenges
     ///     Count the number of good nodes in the binary tree.
     ///     A node X in the tree is named good if in the path from root to X there are no nodes with a value greater than X.
     ///     Source: LeetCode
-    ///     https://leetcode.com/problems/count-good-nodes-in-binary-tree/submissions/
+    ///     https://leetcode.com/problems/count-good-nodes-in-binary-tree/
     /// </summary>
     public static class CountBinaryTreeGoodNodes
     {
