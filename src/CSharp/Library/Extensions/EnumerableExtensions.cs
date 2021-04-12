@@ -9,8 +9,8 @@ namespace CSharp.Library.Extensions
         ///     Intersperses an <see cref="element" /> between the elements of the <see cref="source" /> enumeration. Inspired by
         ///     Haskell, see: https://hoogle.haskell.org/?hoogle=intersperse
         /// </summary>
-        /// <typeparam name="T">Enumeration type.</typeparam>
-        /// <param name="source">Enumeration source.</param>
+        /// <typeparam name="T">The objects type in the enumeration.</typeparam>
+        /// <param name="source">Source enumeration.</param>
         /// <param name="element">Separator to intersperse between the elements of the enumeration.</param>
         /// <param name="options">Specifies the leading and trailing intersperse behavior.</param>
         /// <returns>The enumeration <see cref="source" /> with the <see cref="element" /> interspersed between its elements.</returns>
