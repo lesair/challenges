@@ -28,6 +28,20 @@ namespace CSharp.Library.Extensions
 
             if (options == IntersperseOptions.Trailing) yield return element;
         }
+
+        /// <summary>
+        ///     Removes all trailing null elements from the <see cref="source" /> enumeration.
+        /// </summary>
+        /// <typeparam name="T">The objects type in the enumeration.</typeparam>
+        /// <param name="source">Source enumeration.</param>
+        /// <returns>The enumeration <see cref="source" /> that remains after all the trailing null occurrences were removed.</returns>
+        public static IEnumerable<T> TrimTrailingNulls<T>(this IEnumerable<T> source)
+        {
+            var result = new List<T>(source);
+            var lastNonNullIndex = result.FindLastIndex(element => element != null);
+            result.RemoveRange(lastNonNullIndex + 1, result.Count - 1 - lastNonNullIndex);
+            return result;
+        }
     }
 
     /// <summary>
