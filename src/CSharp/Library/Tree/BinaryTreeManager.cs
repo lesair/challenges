@@ -84,7 +84,7 @@ namespace CSharp.Library.Tree
     /// <typeparam name="TData">Nodes data property data type.</typeparam>
     public sealed class BinaryTreeManager<TData>
     {
-        private readonly Dictionary<string, BinaryNode<TData>> _nodes = new Dictionary<string, BinaryNode<TData>>();
+        private readonly Dictionary<string, BinaryNode<TData>> _nodes = new();
 
         internal BinaryTreeManager()
         {
