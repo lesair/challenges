@@ -34,9 +34,10 @@ namespace CSharp.Challenges
             {
                 node = queue.Dequeue();
                 Visit(node);
-                foreach (var child in node.Children) // From left to right.
-                    if (child != null)
-                        queue.Enqueue(child);
+                if (node == null)
+                    continue;
+                queue.Enqueue(node.Left);
+                queue.Enqueue(node.Right);
             }
         }
 
@@ -45,7 +46,7 @@ namespace CSharp.Challenges
         ///     Time complexity: O(n).
         ///     Space complexity: O(n).
         /// </summary>
-        private static void RecursiveImplementation(ICollection<BinaryNode<T>> levelNodes)
+        private static void RecursiveImplementation(IReadOnlyCollection<BinaryNode<T>> levelNodes)
         {
             if (!levelNodes.Any())
                 return;
@@ -54,7 +55,9 @@ namespace CSharp.Challenges
             foreach (var node in levelNodes) // From left to right.
             {
                 Visit(node);
-                nextLevelNodes.AddRange(node.Children.Where(child => child != null));
+                if (node == null)
+                    continue;
+                nextLevelNodes.AddRange(node.Children);
             }
 
             RecursiveImplementation(nextLevelNodes);
