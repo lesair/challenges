@@ -68,6 +68,18 @@ namespace CSharp
         }
 
         [Fact]
+        public void ReturnsExpectedWordsTestCase04()
+        {
+            var board = new[]
+            {
+                new[] { 'a', 'b' }
+            };
+            var words = new[] { "ba" };
+            var expectedResults = new[] { "ba" };
+            TestImplementations(board, words, expectedResults);
+        }
+
+        [Fact]
         public void ReturnsExpectedWordsLargeTestCase01()
         {
             var board = new[]
