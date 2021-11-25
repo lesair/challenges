@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace CSharp.Challenges
 {
@@ -42,20 +41,21 @@ namespace CSharp.Challenges
             if (Board[y][x] == '*')
                 return;
 
-            if (!node.Children.TryGetValue(new TrieNode(node.Prefix + Board[y][x]), out var nextNode))
+            var nextPrefix = node.Prefix + Board[y][x];
+            if (!node.Children.ContainsKey(nextPrefix))
                 return;
 
             var charValue = Board[y][x];
             Board[y][x] = '*';
 
             var directions = new[] { (0, 1), (1, 0), (0, -1), (-1, 0) };
-            foreach (var (moveY, moveX) in directions) BacktrackingDfs(nextNode, y + moveY, x + moveX);
+            foreach (var (moveY, moveX) in directions) BacktrackingDfs(node.Children[nextPrefix], y + moveY, x + moveX);
 
             Board[y][x] = charValue;
         }
     }
 
-    public class TrieNode : IEquatable<TrieNode>
+    public class TrieNode
     {
         public TrieNode(string prefix, bool isWord = false)
         {
@@ -65,41 +65,18 @@ namespace CSharp.Challenges
 
         public string Prefix { get; }
         public bool IsWord { get; set; }
-        public HashSet<TrieNode> Children { get; set; } = new();
-
-        public bool Equals(TrieNode other)
-        {
-            if (other is null) return false;
-            if (ReferenceEquals(this, other)) return true;
-            return Prefix == other.Prefix;
-        }
-
-        public override bool Equals(object obj)
-        {
-            if (obj is null) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == GetType() && Equals((TrieNode)obj);
-        }
-
-        public override int GetHashCode()
-        {
-            return Prefix.GetHashCode();
-        }
+        public Dictionary<string, TrieNode> Children { get; set; } = new();
 
         public void AddWord(string word, int prefixIndex = 0)
         {
-            var referenceChildNode = new TrieNode(word[..++prefixIndex]);
+            var prefix = word[..++prefixIndex];
 
-            if (!Children.TryGetValue(referenceChildNode, out var actualChildNode))
-            {
-                Children.Add(referenceChildNode);
-                actualChildNode = referenceChildNode;
-            }
+            Children.TryAdd(prefix, new TrieNode(prefix));
 
             if (prefixIndex < word.Length)
-                actualChildNode.AddWord(word, prefixIndex);
+                Children[prefix].AddWord(word, prefixIndex);
             else
-                actualChildNode.IsWord = true;
+                Children[prefix].IsWord = true;
         }
 
         public override string ToString()
